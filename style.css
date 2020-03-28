@@ -1,0 +1,130 @@
+.navbar .navbar-brand {
+  font-family: "Montserrat", sans-serif;
+  font-weight: bolder;
+  font-size: x-large;
+}
+
+.navbar .nav-item {
+  font-family: "Roboto", sans-serif;
+  font-weight: lighter;
+  font-size: 20px;
+}
+.navbar .nav-item .dropdown button {
+  font-family: "Roboto", sans-serif;
+  font-weight: lighter;
+  font-size: 20px;
+}
+#main-content {
+  position: relative;
+  min-height: 600px;
+  background: url(img/muhammad-rizwan-VnydpKiCDaY-unsplash\ \(4\)\ \(4\).jpg);
+  background-attachment: fixed;
+  background-repeat: no-repeat;
+  background-size: cover;
+  color: #fff;
+}
+.dark-overlay {
+  position: absolute;
+  background-color: rgba(0, 0, 0, 0.4);
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+.blockquote p {
+  font-family: "Raleway", sans-serif;
+  font-size: 40px;
+}
+.blockquote * {
+  color: white;
+}
+body {
+  overflow-x: hidden;
+}
+#aboutus-section h1 {
+  font-family: "Roboto", sans-serif;
+}
+#aboutus-section p {
+  font-size: large;
+}
+.carousel-control-next-icon,
+.carousel-control-prev-icon {
+  background-color: black;
+  margin: 0;
+}
+#footer-head {
+  font-weight: bolder;
+  font-size: xx-large;
+  color: white;
+  text-transform: uppercase;
+}
+#footer-head-content {
+  color: white;
+  font-family: "Roboto", sans-serif;
+  font-size: xx-large;
+}
+#contacts {
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  font-size: 20px;
+  text-decoration: none;
+}
+#quick-links {
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  font-size: 20px;
+}
+
+#gallery-section {
+  margin-top: 100px;
+}
+.container #gallery-head {
+  padding-top: 30px;
+  font-family: 'Oswald', sans-serif;
+  font-size: 50px;
+}
+
+#showcase-content
+{
+  position: relative;
+  min-height: 600px;
+  background: url(img/oie_2654716S2iuxh7o.jpg);
+  background-attachment: fixed;
+  background-repeat: no-repeat;
+  background-size: cover;
+  color: #fff;
+}
+#job-posting-content
+{
+  background: rgba(70, 75, 71, 0.2);
+  padding-top: 30px;
+  
+}
+#job-posting-form .container
+{
+  box-shadow:         3px 3px 5px 6px #ccc;
+  
+}
+label{
+  font-weight: 500;
+}
+#image-display
+{
+  position: relative;
+  min-height: 600px;
+  background: url(img/elena-de-soto-w423NnHFjFg-unsplash.jpg);
+  background-attachment: fixed;
+  background-repeat: no-repeat;
+  background-size: cover;
+  color: #fff;
+}
+#welcome-section
+{
+  background: rgba(70, 75, 71, 0.2);
+}
+.media
+{
+  box-shadow:         3px 3px 5px 6px #ccc;
+}
+#events-content .media
+{
+  background-color: rgba(99, 97, 68, 0.3);
+}
