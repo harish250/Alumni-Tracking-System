@@ -7,8 +7,13 @@
     
     <title>Home</title>
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
-    <link rel="stylesheet" href="css/bootstrap.min.css">
-    <link rel="stylesheet" href="style.css">
+    <link
+    rel="stylesheet"
+    href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css"
+    integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB"
+    crossorigin="anonymous"
+  />
+    <link rel="stylesheet" href="css/style.css">
 
     <link href="https://fonts.googleapis.com/css?family=IBM+Plex+Sans:700i|Montserrat|Roboto|Raleway|Poppins:wght@600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
@@ -18,6 +23,7 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script> 
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+   
     <nav class="navbar fixed-top navbar-expand-sm navbar-light bg-light">
        
             <a href="index.html" class="logo mr-4">
@@ -58,14 +64,13 @@
                 </ul>
 
                 <div class="btn-group">
-                    <button class="btn btn-lg btn-outline-dark mr-5" type="button" data-toggle="modal" data-target="#myloginmodal">Login</button>
-                    <button class="btn btn-lg btn-outline-dark mr-4" data-toggle="modal" data-target="#mysignupmodal" type="button">Sign Up</button>
+                    <button class="btn btn-lg btn-outline-dark mr-5" type="button" data-toggle="modal" data-target="#myloginmodal" id="loginButton">Login</button>
+                    <button class="btn btn-lg btn-outline-dark mr-4" data-toggle="modal" data-target="#mysignupmodal" type="button" id="signUp">Sign Up</button>
                 </div>
                 <a data-toggle="modal" data-target="#editProfile">
                   <span class="fas fa-user-circle fa-4x"></span>
                 </a>
-            </div>
-        
+            </div>       
     </nav>
 
     <!-- modal for login-->
@@ -87,11 +92,10 @@
               <input type="password" class="form-control" name="password" placeholder="Password" id="password">
             </div>
             <div class="form-group text-center">
-              <input type="submit" value="Login" class="btn btn-lg btn-secondary">
+              <input type="submit" value="Login" class="btn btn-lg btn-secondary" id="submitButton">
             </div>
           </form>
-        </div>
-        
+        </div>       
       </div>
     </div>
     </div>
@@ -111,9 +115,7 @@
               <input type="text" class="form-control" name="fullname" id="fullname" placeholder="Full Name">
 
               <label for="email">Email</label>
-              <input type="email" class="form-control" name="email" placeholder="Enter your Email Id" id="email">
-              
-            
+              <input type="email" class="form-control" name="email" placeholder="Enter your Email Id" id="email">           
               <label for="password">Password</label>
               <input type="password" class="form-control" name="password" placeholder="Password" id="password">
             
@@ -147,13 +149,9 @@
 
              <label for="yearofgraduation">Year Of Graduation</label>
               <input type="date" class="form-control mb-4" name="yearofgraduation" id="yearofgraduation" placeholder="Year Of Graduation">
-
-
               <div class="form-group text-center">
                 <input type="submit" value="Submit" class="btn btn-lg btn-secondary">
-              </div>
-          
-            
+              </div>          
           </div>
           </form>
         </div>
@@ -178,8 +176,6 @@
 
           <label for="email">Email</label>
           <input type="email" class="form-control" name="email" placeholder="Enter your Email Id" id="email">
-          
-        
           <label for="password">Password</label>
           <input type="password" class="form-control" name="password" placeholder="Password" id="password">
         
@@ -212,9 +208,7 @@
           </div>
 
          <label for="yearofgraduation">Year Of Graduation</label>
-          <input type="date" class="form-control mb-4" name="yearofgraduation" id="yearofgraduation" placeholder="Year Of Graduation">
-
-
+          <input type="date" class="form-control mb-4" name="yearofgraduation" id="yearofgraduation" placeholder="Year Of Graduation">  
           <div class="form-group text-center">
             <input type="submit" value="Edit" class="btn btn-lg btn-secondary">
           </div>
@@ -266,7 +260,6 @@
           </div>
     </div>
      </section>
-
 
      <!-- Services Section -->
       <section id="service-section">
@@ -439,7 +432,6 @@
           </div>
       </section>
 
-
       <!-- Footer Section or Contact us  -->
      <!-- Footer -->
      <footer class="page-footer font-small stylish-color-dark pt-4 bg-dark" id="contact-us">
@@ -450,7 +442,7 @@
           <!-- Grid column -->
           <div class="col-md-4 mx-auto">
             <!-- Content -->
-            <h5 class="mb-4" id="footer-head">Support us </h5>
+            <h5 class="mb-4" id="footer-head">Contact us </h5>
             <p id="footer-head-content">Alumni Tracking System Provides you with unlimited connection with your Colleges </p>
           </div>
           <!-- Grid column -->
@@ -535,5 +527,6 @@
   $(this).parents(".dropdown").find('.btn').val($(this).data('value'));
 });
       </script>
+       <script src="js/scripts.js"></script>
 </body>
 </html>
