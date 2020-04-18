@@ -81,14 +81,181 @@
             </li>
           </ul>
   
-          <form class="form-inline">
-            <button class="btn btn-lg btn-outline-dark mr-5">Login</button>
-            <button class="btn btn-lg btn-outline-dark mr-4">Sign Up</button>
-          </form>
-          <i class="fas fa-user-circle fa-4x"></i>
+          <div class="btn-group">
+            <button class="btn btn-lg btn-outline-dark mr-5"  data-toggle="modal" data-target="#myloginmodal">Login</button>
+            <button class="btn btn-lg btn-outline-dark mr-4" data-toggle="modal" data-target="#mysignupmodal">Sign Up</button>
+          </div>
+          <a data-toggle="modal" data-target="#editProfile">
+            <span class="fas fa-user-circle fa-4x"></span>
+          </a>
         </div>
       </nav>
  
+    <!-- modal for login-->
+ <div class="modal" id="myloginmodal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+    <h5 class="modal-title w-100 text-center">Login</h5>
+    <button class="close" data-dismiss="modal">&times;</button>
+       </div>
+    <div class="modal-body">
+      <form>
+        <div class="form-group">
+          <label for="username">Username</label>
+          <input type="text" class="form-control" name="username" placeholder="Enter your Email Id" id="username">
+        </div>
+        <div class="form-group">
+          <label for="password">Password</label>
+          <input type="password" class="form-control" name="password" placeholder="Password" id="password">
+        </div>
+        <div class="form-group text-center">
+          <input type="submit" value="Login" class="btn btn-lg btn-secondary">
+        </div>
+      </form>
+    </div>
+    
+  </div>
+</div>
+</div>
+
+<!-- modal for signup -->
+<div class="modal" id="mysignupmodal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+    <h5 class="modal-title  w-100 text-center">Signup</h5>
+    <button class="close" data-dismiss="modal">&times;</button>
+       </div>
+    <div class="modal-body">
+      <form>
+        <div class="form-group">
+          <label for="fullname">Name</label>
+          <input type="text" class="form-control" name="fullname" id="fullname" placeholder="Full Name">
+
+          <label for="email">Email</label>
+          <input type="email" class="form-control" name="email" placeholder="Enter your Email Id" id="email">
+          
+        
+          <label for="password">Password</label>
+          <input type="password" class="form-control" name="password" placeholder="Password" id="password">
+        
+          <label for="password">Re-Password</label>
+          <input type="password" class="form-control" name="repassword" placeholder="Re Enter Password" id="repassword">
+          
+          <label for="company">Company</label>
+       <input type="text" class="form-control" name="company" id="company" placeholder="Company">
+      
+             <label for="address">
+               Address
+             </label>
+             <input type="text" class="form-control" name="address" id="address" placeholder=" Residential Address">
+
+           <label for="rollno">Roll No</label>
+          <input type="text" class="form-control" name="rollno" id="rollno" placeholder="Enter Your College ID">
+          
+          <label for="branch">Branch</label>
+          <div class="dropdown mb-2">
+            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+             Branch
+             <span class="caret"></span>
+            </button>
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+              <a class="dropdown-item" href="#" name="cse" id="cse" data-value="CSE">CSE</a>
+              <a class="dropdown-item" href="#" name="eie" id="eie" data-value="EIE">EIE</a>
+              <a class="dropdown-item" href="#" name="it" id="it" data-value="IT">IT</a>
+              <a class="dropdown-item" href="#" name="ece" id="ece" data-value="ECE">ECE</a>
+            </div>
+          </div>
+
+         <label for="yearofgraduation">Year Of Graduation</label>
+          <input type="date" class="form-control mb-4" name="yearofgraduation" id="yearofgraduation" placeholder="Year Of Graduation">
+
+
+          <div class="form-group text-center">
+            <input type="submit" value="Submit" class="btn btn-lg btn-secondary">
+          </div>
+      
+        
+      </div>
+      </form>
+    </div>
+    
+  </div>
+</div>
+</div>
+
+
+<!--Edit Profile -->
+<div class="modal" id="editProfile">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+    <h5 class="modal-title w-100 text-center">Edit Profile</h5>
+    <button class="close" data-dismiss="modal">&times;</button>
+       </div>
+    <div class="modal-body">
+      <form>
+        <div class="form-group">
+          <label for="fullname">Name</label>
+          <input type="text" class="form-control" name="fullname" id="fullname" placeholder="Full Name">
+
+          <label for="email">Email</label>
+          <input type="email" class="form-control" name="email" placeholder="Enter your Email Id" id="email">
+          
+        
+          <label for="password">Password</label>
+          <input type="password" class="form-control" name="password" placeholder="Password" id="password">
+        
+          <label for="password">Re-Password</label>
+          <input type="password" class="form-control" name="repassword" placeholder="Re Enter Password" id="repassword">
+          
+          <label for="company">Company</label>
+       <input type="text" class="form-control" name="company" id="company" placeholder="Company">
+      
+             <label for="address">
+               Address
+             </label>
+             <input type="text" class="form-control" name="address" id="address" placeholder=" Residential Address">
+
+           <label for="rollno">Roll No</label>
+          <input type="text" class="form-control" name="rollno" id="rollno" placeholder="Enter Your College ID">
+          
+          <label for="branch">Branch</label>
+          <div class="dropdown mb-2">
+            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+             Branch
+             <span class="caret"></span>
+            </button>
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+              <a class="dropdown-item" href="#" name="cse" id="cse" data-value="CSE">CSE</a>
+              <a class="dropdown-item" href="#" name="eie" id="eie" data-value="EIE">EIE</a>
+              <a class="dropdown-item" href="#" name="it" id="it" data-value="IT">IT</a>
+              <a class="dropdown-item" href="#" name="ece" id="ece" data-value="ECE">ECE</a>
+            </div>
+          </div>
+
+         <label for="yearofgraduation">Year Of Graduation</label>
+          <input type="date" class="form-control mb-4" name="yearofgraduation" id="yearofgraduation" placeholder="Year Of Graduation">
+
+
+          <div class="form-group text-center">
+            <input type="submit" value="Edit" class="btn btn-lg btn-secondary">
+          </div>
+      
+        
+      </div>
+      </form>
+    </div>
+    
+  </div>
+</div>
+</div>
+
+
+
+
+
       <!-- job posting section  -->
   <section id="showcase-content" class="img-fluid">
     <div class="dark-overlay">
@@ -109,7 +276,7 @@
  <!-- job posting content displayer -->
  <section id="job-posting-content">
    <div class="container">
-   <div class="row">
+   <div class="row pb-4">
      <div class="col-md-4">
       <div class="card text-center m-3">
          <div class="card-header">job posting</div>
@@ -169,37 +336,62 @@
 
  <!--Section for posting job -->
 
- <section id="job-posting-form" class="my-3">
+ <section id="job-posting-form" class="my-3 p-5">
   <div class="container">
     <div class="row">
-      <div class="col">
+      <div class="col p-3">
         <form>
-          <div class="form-group">
-            <label for="jobtitle">Company:</label>
-            <input type="text" name="company" id="company" class="form-control" placeholder="Company" > 
+          <div class="form-group row">
+            <div class="col-sm-2">
+              <label for="jobtitle">Company:</label>
+
+            </div>
+            <div class="col-sm-10">
+              <input type="text" name="company" id="company" class="form-control" placeholder="Company" > 
+
+            </div>
           </div>
-         <div class="form-group">
-          <label for="branch">Job Type</label>
-              <div class="dropdown mb-2">
-                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                 Job Type
-                 <span class="caret"></span>
-                </button>
-                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                  <a class="dropdown-item" href="#" name="fulltime" id="fulltime" data-value="Full Time Jobs">Full Time job</a>
-                  <a class="dropdown-item" href="#" name="parttime" id="parttime" data-value="Part Time Jobs">Part time job</a>
-                  <a class="dropdown-item" href="#" name="workfromhome" id="workfromhome" data-value="Work From Home">Work From Home</a>
-                  <a class="dropdown-item" href="#" name="internships" id="internships" data-value="Internships">Internships</a>
-                </div>
+         <div class="form-group row">
+           <div class="col-sm-2">
+             
+             <label for="branch">Job Type:</label>
+           </div>
+           <div class="col-sm-10">
+
+            <div class="dropdown mb-2">
+              <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+               Job Type
+               <span class="caret"></span>
+              </button>
+              <div class="dropdown-menu " aria-labelledby="dropdownMenuButton">
+                <a class="dropdown-item"  name="fulltime" id="fulltime" data-value="Full Time Jobs">Full Time job</a>
+                <a class="dropdown-item"  name="parttime" id="parttime" data-value="Part Time Jobs">Part time job</a>
+                <a class="dropdown-item"  name="workfromhome" id="workfromhome" data-value="Work From Home">Work From Home</a>
+                <a class="dropdown-item"  name="internships" id="internships" data-value="Internships">Internships</a>
               </div>
             </div>
-        <div class="form-group">
-          <label for="jobtitle">Salary:</label>
-          <input type="numeric" name="salary" id="salary" class="form-control" placeholder="Salary" > 
+          </div>
+           </div>
+            
+        <div class="form-group row">
+          <div class="col-sm-2">
+            <label for="jobtitle">Salary:</label>
+
+          </div>
+          <div class="col-sm-10">
+            <input type="numeric" name="salary" id="salary" class="form-control" placeholder="Salary" > 
+          </div>
+          
         </div>
-        <div class="form-group">
-          <label for="exampleFormControlTextarea4">Job Description:</label>
-          <textarea class="form-control" id="exampleFormControlTextarea4" rows="3"></textarea>
+        <div class="form-group row">
+          <div class="col-sm-2">
+            <label for="exampleFormControlTextarea4">Job Description:</label>
+
+          </div>
+          <div class="col-sm-10">
+            <textarea class="form-control" id="exampleFormControlTextarea4" rows="3"></textarea>
+          </div>
+         
         </div>
       
         <div class="form-group text-center">

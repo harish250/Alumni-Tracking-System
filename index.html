@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="css/bootstrap.min.css">
     <link rel="stylesheet" href="style.css">
 
-    <link href="https://fonts.googleapis.com/css?family=IBM+Plex+Sans:700i|Montserrat|Roboto|Raleway&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=IBM+Plex+Sans:700i|Montserrat|Roboto|Raleway|Poppins:wght@600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
 </head>
 <body>
@@ -61,7 +61,9 @@
                     <button class="btn btn-lg btn-outline-dark mr-5" type="button" data-toggle="modal" data-target="#myloginmodal">Login</button>
                     <button class="btn btn-lg btn-outline-dark mr-4" data-toggle="modal" data-target="#mysignupmodal" type="button">Sign Up</button>
                 </div>
-                <i class="fas fa-user-circle fa-4x"></i>
+                <a data-toggle="modal" data-target="#editProfile">
+                  <span class="fas fa-user-circle fa-4x"></span>
+                </a>
             </div>
         
     </nav>
@@ -71,7 +73,7 @@
       <div class="modal-dialog">
         <div class="modal-content">
           <div class="modal-header">
-        <h5 class="modal-title">Login</h5>
+        <h5 class="modal-title w-100 text-center">Login</h5>
         <button class="close" data-dismiss="modal">&times;</button>
            </div>
         <div class="modal-body">
@@ -99,7 +101,7 @@
       <div class="modal-dialog">
         <div class="modal-content">
           <div class="modal-header">
-        <h5 class="modal-title  ">Signup</h5>
+        <h5 class="modal-title w-100 text-center ">Signup</h5>
         <button class="close" data-dismiss="modal">&times;</button>
            </div>
         <div class="modal-body">
@@ -160,6 +162,72 @@
     </div>
     </div>
 
+<!--Edit Profile -->
+<div class="modal" id="editProfile">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+    <h5 class="modal-title w-100 text-center">Edit Profile</h5>
+    <button class="close" data-dismiss="modal">&times;</button>
+       </div>
+    <div class="modal-body">
+      <form>
+        <div class="form-group">
+          <label for="fullname">Name</label>
+          <input type="text" class="form-control" name="fullname" id="fullname" placeholder="Full Name">
+
+          <label for="email">Email</label>
+          <input type="email" class="form-control" name="email" placeholder="Enter your Email Id" id="email">
+          
+        
+          <label for="password">Password</label>
+          <input type="password" class="form-control" name="password" placeholder="Password" id="password">
+        
+          <label for="password">Re-Password</label>
+          <input type="password" class="form-control" name="repassword" placeholder="Re Enter Password" id="repassword">
+          
+          <label for="company">Company</label>
+       <input type="text" class="form-control" name="company" id="company" placeholder="Company">
+      
+             <label for="address">
+               Address
+             </label>
+             <input type="text" class="form-control" name="address" id="address" placeholder=" Residential Address">
+
+           <label for="rollno">Roll No</label>
+          <input type="text" class="form-control" name="rollno" id="rollno" placeholder="Enter Your College ID">
+          
+          <label for="branch">Branch</label>
+          <div class="dropdown mb-2">
+            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+             Branch
+             <span class="caret"></span>
+            </button>
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+              <a class="dropdown-item" href="#" name="cse" id="cse" data-value="CSE">CSE</a>
+              <a class="dropdown-item" href="#" name="eie" id="eie" data-value="EIE">EIE</a>
+              <a class="dropdown-item" href="#" name="it" id="it" data-value="IT">IT</a>
+              <a class="dropdown-item" href="#" name="ece" id="ece" data-value="ECE">ECE</a>
+            </div>
+          </div>
+
+         <label for="yearofgraduation">Year Of Graduation</label>
+          <input type="date" class="form-control mb-4" name="yearofgraduation" id="yearofgraduation" placeholder="Year Of Graduation">
+
+
+          <div class="form-group text-center">
+            <input type="submit" value="Edit" class="btn btn-lg btn-secondary">
+          </div>
+      
+        
+      </div>
+      </form>
+    </div>
+    
+  </div>
+</div>
+</div>
+
     
 <!-- Main Content Section -->
        <section id="main-content" class="img-fluid p-5 mb-3">
@@ -202,7 +270,7 @@
 
      <!-- Services Section -->
       <section id="service-section">
-        <div id="carouselExampleIndicators" class="carousel slide mt-5" data-ride="carousel">
+        <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
            
             <div class="carousel-inner">
               <div class="carousel-item active">
@@ -214,7 +282,7 @@
 
                      <div class="card-body">
                        <h2><i class="fas fa-user fa-2x"></i></h2>
-                       <h3 class="card-title display-4">Susan Doe</h3>
+                       <h3 class="card-title">Susan Doe</h3>
                        <p class="card-text lead">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eius, repellendus?</p>
                      </div>
                    </div>
@@ -225,7 +293,7 @@
  
                       <div class="card-body">
                         <h2><i class="fas fa-user fa-2x"></i></h2>
-                        <h3 class="card-title display-4">Susan Doe</h3>
+                        <h3 class="card-title ">Susan Doe</h3>
                         <p class="card-text lead">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eius, repellendus?</p>
                       </div>
                     </div>
@@ -236,7 +304,7 @@
  
                       <div class="card-body">
                         <h2><i class="fas fa-user fa-2x"></i></h2>
-                        <h3 class="card-title display-4">Susan Doe</h3>
+                        <h3 class="card-title ">Susan Doe</h3>
                         <p class="card-text lead">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eius, repellendus?</p>
                       </div>
                     </div>
@@ -248,7 +316,7 @@
  
                       <div class="card-body">
                         <h2><i class="fas fa-user fa-2x"></i></h2>
-                        <h3 class="card-title display-4">Susan Doe</h3>
+                        <h3 class="card-title">Susan Doe</h3>
                         <p class="card-text lead">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eius, repellendus?</p>
                       </div>
                     </div>
@@ -265,7 +333,7 @@
    
                         <div class="card-body">
                           <h2><i class="fas fa-user fa-2x"></i></h2>
-                          <h3 class="card-title display-4">Susan Doe</h3>
+                          <h3 class="card-title">Susan Doe</h3>
                           <p class="card-text lead">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eius, repellendus?</p>
                         </div>
                       </div>
@@ -276,7 +344,7 @@
     
                          <div class="card-body">
                            <h2><i class="fas fa-user fa-2x"></i></h2>
-                           <h3 class="card-title display-4">Susan Doe</h3>
+                           <h3 class="card-title">Susan Doe</h3>
                            <p class="card-text lead">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eius, repellendus?</p>
                          </div>
                        </div>
@@ -287,7 +355,7 @@
     
                          <div class="card-body">
                            <h2><i class="fas fa-user fa-2x"></i></h2>
-                           <h3 class="card-title display-4">Susan Doe</h3>
+                           <h3 class="card-title">Susan Doe</h3>
                            <p class="card-text lead">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eius, repellendus?</p>
                          </div>
                        </div>
@@ -299,7 +367,7 @@
      
                           <div class="card-body">
                             <h2><i class="fas fa-user fa-2x"></i></h2>
-                            <h3 class="card-title display-4">Susan Doe</h3>
+                            <h3 class="card-title">Susan Doe</h3>
                             <p class="card-text lead">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eius, repellendus?</p>
                           </div>
                         </div>
@@ -317,7 +385,7 @@
    
                         <div class="card-body">
                           <h2><i class="fas fa-user fa-2x"></i></h2>
-                          <h3 class="card-title display-4">Susan Doe</h3>
+                          <h3 class="card-title">Susan Doe</h3>
                           <p class="card-text lead">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eius, repellendus?</p>
                         </div>
                       </div>
@@ -328,7 +396,7 @@
     
                          <div class="card-body">
                            <h2><i class="fas fa-user fa-2x"></i></h2>
-                           <h3 class="card-title display-4">Susan Doe</h3>
+                           <h3 class="card-title">Susan Doe</h3>
                            <p class="card-text lead">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eius, repellendus?</p>
                          </div>
                        </div>
@@ -339,7 +407,7 @@
     
                          <div class="card-body">
                            <h2><i class="fas fa-user fa-2x"></i></h2>
-                           <h3 class="card-title display-4">Susan Doe</h3>
+                           <h3 class="card-title">Susan Doe</h3>
                            <p class="card-text lead">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eius, repellendus?</p>
                          </div>
                        </div>
@@ -351,7 +419,7 @@
      
                           <div class="card-body">
                             <h2><i class="fas fa-user fa-2x"></i></h2>
-                            <h3 class="card-title display-4">Susan Doe</h3>
+                            <h3 class="card-title">Susan Doe</h3>
                             <p class="card-text lead">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eius, repellendus?</p>
                           </div>
                         </div>
