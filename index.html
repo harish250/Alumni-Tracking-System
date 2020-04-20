@@ -19,6 +19,7 @@
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
 </head>
 <body>
+  <!-- onload = setup('load',<?php echo var ?>) -->
   <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script> 
@@ -37,42 +38,67 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ml-auto">
-                    <li class="nav-item mr-4">
+                    <li class="nav-item mr-2">
                         <a class="nav-link active" href="index.html">Home</a>
                     </li>
-                    <li class="nav-item mr-4">
+                    <li class="nav-item mr-2">
                         <a class="nav-link" href="#aboutus-section">About</a>
                     </li>
-                    <li class="nav-item mr-4">
+                    <li class="nav-item mr-2">
                         <div class="dropdown">
                             <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                              Services
                             </button>
                             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                              <a class="dropdown-item" href="gallery.html">Gallery</a>
-                              <a class="dropdown-item" href="posting.html">Job Posting</a>
-                              <a class="dropdown-item" href="events.html">Events</a>
-                              <a class="dropdown-item" href="#">Group Chat</a>
+                              <a class="dropdown-item" href="#alertLoginModal" data-toggle="modal" id="gallerylink">Gallery</a>
+                              <a class="dropdown-item" href="#alertLoginModal" data-toggle="modal" id="postinglink">Job Posting</a>
+                              <a class="dropdown-item" href="#alertLoginModal" data-toggle="modal"  id="eventslink">Events</a>
+                              <a class="dropdown-item" href="#alertLoginModal" data-toggle="modal"  id="groupchatlink">Group Chat</a>
                         
                             </div>
                           </div>
                         
                     </li>
-                    <li class="nav-item mr-4">
+                    <li class="nav-item mr-2">
                         <a class="nav-link" href="#contact-us">Contact</a>
                     </li>
                 </ul>
-
+                <!-- 
+                 if session exists then show the username
+                 else view btn grp
+                 -->
+    
                 <div class="btn-group">
-                    <button class="btn btn-lg btn-outline-dark mr-5" type="button" data-toggle="modal" data-target="#myloginmodal" id="loginButton">Login</button>
+                    <button class="btn btn-lg btn-outline-dark mr-4" type="button" data-toggle="modal" data-target="#myloginmodal" id="loginButton">Login</button>
                     <button class="btn btn-lg btn-outline-dark mr-4" data-toggle="modal" data-target="#mysignupmodal" type="button" id="signUp">Sign Up</button>
                 </div>
+              
+                <span class="navbar-text mr-2" id="loggedInAs">
+                
+                </span>
+             
                 <a data-toggle="modal" data-target="#editProfile">
-                  <span class="fas fa-user-circle fa-4x"></span>
+                  <span class="fas fa-user-circle fa-3x"></span>
                 </a>
+            
+
             </div>       
     </nav>
 
+    <!-- Modal for alerting to login  -->
+    <div class="modal" id="alertLoginModal">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title w-100 text-center">Please Login</h5>
+            <button class="close" data-dismiss="modal">&times;</button>
+          </div>
+          <div class="modal-body">
+               <h1 class="display-5 text-center">Please Login</h1>
+          </div>
+        </div>
+      </div>
+    </div>
     <!-- modal for login-->
     <div class="modal" id="myloginmodal">
       <div class="modal-dialog">
@@ -85,17 +111,23 @@
           <form>
             <div class="form-group">
               <label for="username">Username</label>
-              <input type="text" class="form-control" name="username" placeholder="Enter your Email Id" id="username">
+              <input type="text" class="form-control" name="username" placeholder="Enter your Email Id" id="username" required>
+             
             </div>
             <div class="form-group">
               <label for="password">Password</label>
-              <input type="password" class="form-control" name="password" placeholder="Password" id="password">
+              <input type="password" class="form-control" name="password" placeholder="Password" id="password" required>
+              <small id="text-prompt" class="form-text text-danger"></small>
             </div>
             <div class="form-group text-center">
-              <input type="submit" value="Login" class="btn btn-lg btn-secondary" id="submitButton">
+              <input type="button" value="Login" class="btn btn-lg btn-secondary" id="submitButton" onclick="login()">
+              <!-- onclick = setup('login') -->
             </div>
           </form>
-        </div>       
+          
+        </div>    
+           
+           
       </div>
     </div>
     </div>
@@ -247,15 +279,15 @@
           <div class="row">
               <div class="col-md-4 text-center"data-aos="fade-up-right" data-aos-duration="1000">
                 <i class="fas fa-user-tie fa-3x mb-2"></i>
-                  <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Pariatur quos, consequuntur quod deserunt impedit similique magnam animi, sequi suscipit illum adipisci fuga? Quae neque laboriosam inventore commodi quo dicta non?</p>
+                  <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Sed nemo quasi recusandae eveniet consequuntur inventore provident cupiditate aliquam laborum. Enim!</p>
               </div>
               <div class="col-md-4 text-center" data-aos="flip-left" data-aos-duration="2000">    
                 <i class="fas fa-user-tie fa-3x mb-2"></i>
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptas quis ad doloremque saepe dolores nesciunt reiciendis expedita, assumenda quasi magni tenetur, aut at molestiae facilis? Alias voluptatum aut cupiditate praesentium?</p>
+                <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Ratione libero aliquam iste quis iusto ducimus dignissimos autem delectus, mollitia voluptatibus.</p>
             </div>
             <div class="col-md-4 text-center"data-aos="fade-up-left" data-aos-duration="1000">
                 <i class="fas fa-user-tie fa-3x mb-2"></i>
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolorum itaque odit dolores expedita voluptatum aliquam. Molestiae natus reprehenderit suscipit facere eos exercitationem culpa pariatur perferendis nesciunt blanditiis. Ducimus, repudiandae natus.</p>
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Blanditiis neque beatae accusamus illum atque sint, pariatur iste dolorum laboriosam quasi.</p>
             </div>
           </div>
     </div>
@@ -518,6 +550,9 @@
     </footer>
   <!-- Footer -->
  
+
+
+
  <script>
         AOS.init();
       </script>
