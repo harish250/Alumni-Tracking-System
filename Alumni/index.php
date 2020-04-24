@@ -1,3 +1,10 @@
+<?php
+  session_start();
+  
+  $logged_in = isset($_SESSION['id'])?true:false;
+  $username =  ($logged_in)?$_SESSION['username']:'';
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -18,74 +25,74 @@
     <link href="https://fonts.googleapis.com/css?family=IBM+Plex+Sans:700i|Montserrat|Roboto|Raleway|Poppins:wght@600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
 </head>
-<body>
-  <!-- onload = setup('load',<?php echo var ?>) -->
+<body onload = <?php echo "setup('load',$logged_in)"?>>
   <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script> 
-    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
    
-    <nav class="navbar fixed-top navbar-expand-sm navbar-light bg-light">
-       
-            <a href="index.html" class="logo mr-4">
-                <span class="logo-section">
-                    <img src="img/download-removebg-preview.png" alt="" >
-                </span>
-            </a>
-            <a class="navbar-brand mr-5" href="#">Alumni Tracking System</a>
-            <button class="navbar-toggler" data-toggle="collapse" data-target="#navbarNav">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav ml-auto">
-                    <li class="nav-item mr-2">
-                        <a class="nav-link active" href="index.html">Home</a>
-                    </li>
-                    <li class="nav-item mr-2">
-                        <a class="nav-link" href="#aboutus-section">About</a>
-                    </li>
-                    <li class="nav-item mr-2">
-                        <div class="dropdown">
-                            <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                             Services
-                            </button>
-                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                              <a class="dropdown-item" href="#alertLoginModal" data-toggle="modal" id="gallerylink">Gallery</a>
-                              <a class="dropdown-item" href="#alertLoginModal" data-toggle="modal" id="postinglink">Job Posting</a>
-                              <a class="dropdown-item" href="#alertLoginModal" data-toggle="modal"  id="eventslink">Events</a>
-                              <a class="dropdown-item" href="#alertLoginModal" data-toggle="modal"  id="groupchatlink">Group Chat</a>
-                        
-                            </div>
-                          </div>
-                        
-                    </li>
-                    <li class="nav-item mr-2">
-                        <a class="nav-link" href="#contact-us">Contact</a>
-                    </li>
-                </ul>
-                <!-- 
-                 if session exists then show the username
-                 else view btn grp
-                 -->
-    
-                <div class="btn-group">
-                    <button class="btn btn-lg btn-outline-dark mr-4" type="button" data-toggle="modal" data-target="#myloginmodal" id="loginButton">Login</button>
-                    <button class="btn btn-lg btn-outline-dark mr-4" data-toggle="modal" data-target="#mysignupmodal" type="button" id="signUp">Sign Up</button>
-                </div>
-              
-                <span class="navbar-text mr-2" id="loggedInAs">
+  <nav class="navbar fixed-top navbar-expand-sm navbar-light bg-light">
+      
+    <a href="index.php" class="logo mr-4">
+      <span class="logo-section mr-3">
+        <img src="img/download-removebg-preview.png" alt="" />
+      </span>
+      <span class="navbar-brand mr-5">Alumni Tracking System</span>
+    </a>
+    <button class="navbar-toggler" data-toggle="collapse" data-target="#navbarNav">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ml-auto">
+            <li class="nav-item mr-2">
+                <a class="nav-link active" href="index.php">Home</a>
+            </li>
+            <li class="nav-item mr-2">
+                <a class="nav-link" href="#aboutus-section">About</a>
+            </li>
+            <li class="nav-item mr-2">
+                <div class="dropdown">
+                    <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                      Services
+                    </button>
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                      <a class="dropdown-item" href="#myloginmodal" data-toggle="modal" id="gallerylink">Gallery</a>
+                      <a class="dropdown-item" href="#myloginmodal" data-toggle="modal" id="postinglink">Job Posting</a>
+                      <a class="dropdown-item" href="#myloginmodal" data-toggle="modal"  id="eventslink">Events</a>
+                      <a class="dropdown-item" href="#myloginmodal" data-toggle="modal"  id="groupchatlink">Group Chat</a>
                 
-                </span>
-             
-                <a data-toggle="modal" data-target="#editProfile">
-                  <span class="fas fa-user-circle fa-3x"></span>
-                </a>
-            
+                    </div>
+                  </div>
+                
+            </li>
+            <li class="nav-item mr-2">
+                <a class="nav-link" href="#contact-us">Contact</a>
+            </li>
+        </ul>
+        <!-- 
+          if session exists then show the username
+          else view btn grp
+          -->
 
-            </div>       
-    </nav>
+        <div class="btn-group">
+            <button class="btn btn-lg btn-outline-dark mr-4" type="button" data-toggle="modal" data-target="#myloginmodal" id="loginButton">Login</button>
+            <button class="btn btn-lg btn-outline-dark mr-4" data-toggle="modal" data-target="#mysignupmodal" type="button" id="signUp">Sign Up</button>
+        </div>
+      
+        <span class="navbar-text mr-2" id="loggedInAs">
+        
+        </span>
+      
+        <a data-toggle="modal" data-target="#editProfile">
+          <span class="fas fa-user-circle fa-3x"></span>
+        </a>
+    
 
-    <!-- Modal for alerting to login  -->
+    </div>       
+  </nav>
+
+    <!-- Modal for alerting to login  ...no use -->
     <div class="modal" id="alertLoginModal">
       <div class="modal-dialog">
         <div class="modal-content">
@@ -111,16 +118,16 @@
           <form>
             <div class="form-group">
               <label for="username">Username</label>
-              <input type="text" class="form-control" name="username" placeholder="Enter your Email Id" id="username" required>
+              <input type="text" class="form-control" name="username" placeholder="Enter your Email Id" id="login_username" required>
              
             </div>
             <div class="form-group">
               <label for="password">Password</label>
-              <input type="password" class="form-control" name="password" placeholder="Password" id="password" required>
+              <input type="password" class="form-control" name="password" placeholder="Password" id="login_password" required>
               <small id="text-prompt" class="form-text text-danger"></small>
             </div>
             <div class="form-group text-center">
-              <input type="button" value="Login" class="btn btn-lg btn-secondary" id="submitButton" onclick="login()">
+              <input type="button" value="Login" class="btn btn-lg btn-secondary" id="submitButton" onclick="setup('login')">
               <!-- onclick = setup('login') -->
             </div>
           </form>
@@ -147,9 +154,9 @@
               <input type="text" class="form-control" name="fullname" id="fullname" placeholder="Full Name">
 
               <label for="email">Email</label>
-              <input type="email" class="form-control" name="email" placeholder="Enter your Email Id" id="email">           
+              <input type="email" class="form-control" name="email" placeholder="Enter your Email Id" id="signup_email">           
               <label for="password">Password</label>
-              <input type="password" class="form-control" name="password" placeholder="Password" id="password">
+              <input type="password" class="form-control" name="password" placeholder="Password" id="signup_password">
             
               <label for="password">Re-Password</label>
               <input type="password" class="form-control" name="repassword" placeholder="Re Enter Password" id="repassword">
@@ -462,6 +469,8 @@
               <span class="sr-only">Next</span>
             </a>
           </div>
+          <input type="hidden" id="session" value="<?php echo $username?>" class = "d-none">
+          
       </section>
 
       <!-- Footer Section or Contact us  -->
@@ -521,7 +530,6 @@
       </div>
       <!-- Footer Links -->
       <hr>
-    -->
       <hr>
       <!-- Social buttons -->
       <ul class="list-unstyled list-inline text-center">
