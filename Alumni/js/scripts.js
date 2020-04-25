@@ -1,24 +1,4 @@
-
-// /*
 var CONTROLLER_LINK = "controller.php";
-
-// function setup(param, loggedin){
-//     switch(param):
-//     case ...
-//     case 'load':
-//         fill the coursel --> this involves ajax call 
-//         $.get('url?action=achivements',callback)
-//         change the hrefs -->change_hrefs(loggedin)
-//     case login:
-//         $('#myloginmodal') -->get username and pass
-//         $.post(url,
-//             action: 'login',
-//             username:
-//             pass
-//             callback_fun
-//             )
-// }
-// */
 
  function setup(param, logged_in = false)
  { 
@@ -50,23 +30,6 @@ var CONTROLLER_LINK = "controller.php";
  }
 
 
-
-
-function loadContent(loggedIn)
-{
-   if(loggedIn)
-   {
-       var logInButton = document.getElementById("loginButton");
-       logInButton.style.display="none";
-       var signUp=document.getElementById("signUp");
-       signUp.style.display="none";     
-   }
-   
-       loadAchievements();
-       changeHrefs(loggedIn);
-   
-
-} 
 function changeHrefs()
 {
     $('#gallerylink').attr("href","gallery.html");
@@ -106,130 +69,68 @@ function login(data, status)
         
 }
 
- function loadAchievements(data,status)
+function loadAchievements(data,status)
 {
-    var jsonObject = JSON.parse(data);
-    var carouselInner = document.getElementsByClassName("carousel-inner")[0];
+    data = JSON.parse(data);
 
-    var carouselItem = createCarouselItem();
-    var container = createContainer();
+    if(data.length == 0)
+        return;
     
-    var row = createRow();
-    container.appendChild(row);
-    carouselItem.appendChild(container);
-    var a = new Array();
-    var card ;
-    for(var i = 0 ; i<jsonObject.length;i++)
-    {
-        if((i+1)%3==0)
-        {
-            card=createCard(jsonObject[i]);
-            row.appendChild(card);
-            carouselItem.appendChild(row);
-            carouselInner.appendChild(carouselItem);
-            carouselItem = createCarouselItem();
-            container = createContainer();
-            row = createRow();
-            container.appendChild(row);
-            carouselItem.appendChild(container);
-        }
-        else
-        {
-            card = createCard(jsonObject[i]);
-            row.appendChild(card);
-        }
-    
+    // nested - function
+    var createHolder = (type)=>{
+        return $('<div></div>').addClass(type);
     }
-}
-function createCarouselItem()
-{
-    //carousel-inner
-    var createItem = document.createElement('div');
-    createItem.className="carousel-item"; //carouse-item container
-    
-    return createItem;
-}
-function createContainer()
-{
-    var container = document.createElement('div');
-    container.className = 'container';
-    
-return container;
-}
-function createRow()
-{
-    var row = document.createElement('div');
-    row.className = 'row';
 
-    return row;
+    var carousel_inner = $('.carousel-inner');
+    
+    //removes all the children elements... i.e., all of the dummy cards or previously loaded content
+    carousel_inner.empty();
+    
+    var carousel_item, container, row, cardgrp;
+    
+    for(let i=0; i< data.length;i++)
+    {
+        if(i%3 == 0)
+        {
+            carousel_item = createHolder("carousel-item");
+            if(i==0)
+                carousel_item.addClass("active");
+            container = createHolder("container");
+            row = createHolder("row");
+            cardgrp = createHolder('card-group col');
+            row.append(cardgrp);
+            container.append(row);
+            carousel_item.append(container);
+            carousel_inner.append(carousel_item);
+        }
 
+        var card = createCard(data[i]);
+        cardgrp.append(card);
+    }
+    $(".carousel.slide").removeClass('d-none'); //making it visible
 }
- 
+
+
 function createCard(jsonObject)
 {
     var alumniName = jsonObject.alumni_name;
     var description = jsonObject.desc;
     var photo_url = jsonObject.url;
 
-    var col = document.createElement('div');
-    col.className="col-md-4";
-
-    var card = document.createElement("div");
-    card.className="card text-center";
-   
-    var image = document.createElement("img");
-    image.className = "card-img-top rounded-circle w-50 h-100 mx-auto mt-2";
-    console.log(photo_url)
-    image.setAttribute("src",photo_url);
-    card.appendChild(image);
-
-    var cardBody = document.createElement('div');
-    cardBody.className='card-body';
+    var card = $('<div></div>').addClass('card text-center m-2');
     
-    var cardTitle = document.createElement('h5');
-    cardTitle.className="card-title ";
-    cardTitle.textContent=alumniName;
-
-    var cardText = document.createElement('div');
-    cardText.className="card-text lead";
-    cardText.textContent=description;
-
-    cardBody.appendChild(cardTitle);
-    cardBody.appendChild(cardText);
-    card.appendChild(cardBody);
-    col.appendChild(card);
-    
-    return col;
-}
-
-
-/*
-function ach_callback(xhttp)
-{
-    you will get the refs to the cards
-    and fill in the resp data
-}
-
-function change_hrefs(loggedin= false)
-{
-    var links = $('point to the links')
-    if(loggedin)
-    {
-        point hrefs to their resp files
-        remove data-toggle
-    }
-    else
-    {
-        change hrefs so that they point to loginmodal
-        and add data-toggle
-    }
-}
-
-function login(xhttp)
-{
-    if(xhttp)
-    {
+    var image = $('<img/>')
+                        .addClass('card-img-top rounded-circle w-50 h-100 mx-auto mt-2')
+                        .attr("src",photo_url)
         
-    }
+    var cardBody = $('<div></div>').addClass('card-body')
+    var cardTitle = $('<h5></h5>').addClass('card-title').text(alumniName);
+    var cardText = $('<div></div>').addClass('card-text lead').text(description);
+
+    cardBody.append(cardTitle, cardText);
+    card.append(image, cardBody);
+
+    return card;
+   
 }
-*/
+
