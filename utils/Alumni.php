@@ -6,7 +6,7 @@ class Alumni
     public function getJobPostings(string $id = 'all'):array
     {
         $conn = DBConnection::getConn();
-        $sql = "select company, type, salary, description, date_posted from ".DBConstants::$JOB_POSTING_TABLE;
+        $sql = "select job_id,company, type, salary from ".DBConstants::$JOB_POSTING_TABLE;
     
         $condition = ($id == 'all')?'':" where alumni_id = '$id'";
         
@@ -28,7 +28,7 @@ class Alumni
         $conn = DBConnection::getConn();
         
         $sql = "select alumni_id 'id', username from ".DBConstants::$ALUMNI_TABLE." where 
-        (username= '$username' or alumni_id = '$username') and password = '$password'";
+        (email= '$username' or alumni_id = '$username') and password = '$password'";
 
         $result = $conn->query($sql);
         $conn->close();
@@ -53,6 +53,17 @@ class Alumni
             return $result->fetch_all(MYSQLI_ASSOC);
         
         return [];
+    }
+    public function getDescription(string $jobid):array
+    {
+        $conn = DBConnection::getConn();
+        $sql="select * from ".DBConstants::$JOB_POSTING_TABLE." where job_id='$jobid'";
+        $result=$conn->query($sql);
+    
+        $conn->close(); 
+
+        if($result->num_rows>0)
+        return $result->fetch_all(MYSQLI_ASSOC);
     }
 }
 ?>

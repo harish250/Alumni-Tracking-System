@@ -1,3 +1,10 @@
+<?php
+session_start();
+   
+if(!isset($_SESSION['id']))
+  header("location:index.php");
+   
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -5,6 +12,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0,user-scalable=no">
     <title>Document</title>
+  
     <link
     rel="stylesheet"
     href="https://use.fontawesome.com/releases/v5.0.13/css/all.css"
@@ -24,15 +32,18 @@
     crossorigin="anonymous"
   />
   <link
-  href="https://fonts.googleapis.com/css?family=IBM+Plex+Sans:700i|Montserrat|Roboto|Raleway|Alfa+Slab+One|Oswald&display=swap"
+  href="https://fonts.googleapis.com/css?family=IBM+Plex+Sans:700i|Montserrat|Roboto|Raleway|Alfa+Slab+One|Oswald|Arvo:ital@1&family=Bitter:wght@700&display=swap"
   rel="stylesheet"
 />
-  <link rel="stylesheet" href="css/style.css" />
+<link rel="stylesheet" href="css/style.css" />
 </head>
-<body>
+<body onload = "setup('customview')">
+
   <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script> 
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="js/posting.js"></script>
     <!-- Nav bar -->
     <nav class="navbar fixed-top navbar-expand-sm navbar-light bg-light">
         <a href="index.php" class="logo mr-4">
@@ -70,7 +81,7 @@
                 </button>
                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                   <a class="dropdown-item" href="gallery.html">Gallery</a>
-                  <a class="dropdown-item" href="posting.html">Job Posting</a>
+                  <a class="dropdown-item" href="#">Job Posting</a>
                   <a class="dropdown-item" href="events.html">Events</a>
                   <a class="dropdown-item" href="#">Group Chat</a>
                 </div>
@@ -80,110 +91,19 @@
               <a class="nav-link" href="#contact-us">Contact</a>
             </li>
           </ul>
-  
-          <div class="btn-group">
-            <button class="btn btn-lg btn-outline-dark mr-4"  data-toggle="modal" data-target="#myloginmodal">Login</button>
-            <button class="btn btn-lg btn-outline-dark mr-4" data-toggle="modal" data-target="#mysignupmodal">Sign Up</button>
-          </div>
+          <span class="navbar-text mr-2" id="loggedInAs">
+                Welcome <?php  echo $_SESSION['username'] ?>
+          </span>
+
+            <a href="signout.php" class="btn btn-lg btn-outline-dark mr-2 text-decoration-none" id="signoutButton">Sign Out</a>
+
           <a data-toggle="modal" data-target="#editProfile">
             <span class="fas fa-user-circle fa-3x"></span>
           </a>
         </div>
       </nav>
  
-    <!-- modal for login-->
- <div class="modal" id="myloginmodal">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-    <h5 class="modal-title w-100 text-center">Login</h5>
-    <button class="close" data-dismiss="modal">&times;</button>
-       </div>
-    <div class="modal-body">
-      <form>
-        <div class="form-group">
-          <label for="username">Username</label>
-          <input type="text" class="form-control" name="username" placeholder="Enter your Email Id" id="username">
-        </div>
-        <div class="form-group">
-          <label for="password">Password</label>
-          <input type="password" class="form-control" name="password" placeholder="Password" id="password">
-        </div>
-        <div class="form-group text-center">
-          <input type="submit" value="Login" class="btn btn-lg btn-secondary">
-        </div>
-      </form>
-    </div>
-    
-  </div>
-</div>
-</div>
 
-<!-- modal for signup -->
-<div class="modal" id="mysignupmodal">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-    <h5 class="modal-title  w-100 text-center">Signup</h5>
-    <button class="close" data-dismiss="modal">&times;</button>
-       </div>
-    <div class="modal-body">
-      <form>
-        <div class="form-group">
-          <label for="fullname">Name</label>
-          <input type="text" class="form-control" name="fullname" id="fullname" placeholder="Full Name">
-
-          <label for="email">Email</label>
-          <input type="email" class="form-control" name="email" placeholder="Enter your Email Id" id="email">
-          
-        
-          <label for="password">Password</label>
-          <input type="password" class="form-control" name="password" placeholder="Password" id="password">
-        
-          <label for="password">Re-Password</label>
-          <input type="password" class="form-control" name="repassword" placeholder="Re Enter Password" id="repassword">
-          
-          <label for="company">Company</label>
-       <input type="text" class="form-control" name="company" id="company" placeholder="Company">
-      
-             <label for="address">
-               Address
-             </label>
-             <input type="text" class="form-control" name="address" id="address" placeholder=" Residential Address">
-
-           <label for="rollno">Roll No</label>
-          <input type="text" class="form-control" name="rollno" id="rollno" placeholder="Enter Your College ID">
-          
-          <label for="branch">Branch</label>
-          <div class="dropdown mb-2">
-            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-             Branch
-             <span class="caret"></span>
-            </button>
-            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-              <a class="dropdown-item" href="#" name="cse" id="cse" data-value="CSE">CSE</a>
-              <a class="dropdown-item" href="#" name="eie" id="eie" data-value="EIE">EIE</a>
-              <a class="dropdown-item" href="#" name="it" id="it" data-value="IT">IT</a>
-              <a class="dropdown-item" href="#" name="ece" id="ece" data-value="ECE">ECE</a>
-            </div>
-          </div>
-
-         <label for="yearofgraduation">Year Of Graduation</label>
-          <input type="date" class="form-control mb-4" name="yearofgraduation" id="yearofgraduation" placeholder="Year Of Graduation">
-
-
-          <div class="form-group text-center">
-            <input type="submit" value="Submit" class="btn btn-lg btn-secondary">
-          </div>
-      
-        
-      </div>
-      </form>
-    </div>
-    
-  </div>
-</div>
-</div>
 
 
 <!--Edit Profile -->
@@ -252,9 +172,33 @@
 </div>
 </div>
 
-
-
-
+<!--Job Posting Description Modal  -->
+<div class="modal" id="jobDescriptionModal">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title text-center"></h5>
+        <button class="close" data-dismiss="modal">&times;</button>
+      </div>
+      <div class="modal-body">
+        <!-- type and salary -->
+        <div class="row"> 
+          <div class="col offset-2 offset-sm-2 col-sm-4 " id="type"></div>
+          <div class="offset-2 col col-sm-4" id="salary"></div>
+        </div>
+        <!-- job Description -->
+        <div class="row">
+          <div class="col-12">Job Description: </div>
+          <div class="col-12" id="description"></div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <a href="mailto:" class="btn btn-success">Apply Now</a>
+        <span class="text-muted ml-auto"></span>
+      </div>
+    </div>
+  </div>
+</div>
 
       <!-- job posting section  -->
   <section id="showcase-content" class="img-fluid">
@@ -274,70 +218,51 @@
   </section>
  
  <!-- job posting content displayer -->
- <section id="job-posting-content">
-   <div class="container">
-   <div class="row pb-4">
-     <div class="col-md-4">
-      <div class="card text-center m-3">
-         <div class="card-header">job posting</div>
-        <div class="card-body">
-          <h4 class="card-title">Xyz - company</h4>
-          <p class="card-text">Job Type: Freelancing</p>
-          <p class="card-text">
-            Salary: $50000
-          </p>
-          <p class="card-text">
-            Job Description:
-            <br> Lorem ipsum dolor sit amet consectetur adipisicing elit. Porro, magnam!
-          </p>
+ <div class="posting-outline p-3">
+ <div id="posting-section" class="container p-5 bg-white" >
+   <h2 class="text-center">Latest Job Postings</h2>
+   <button class="btn btn-primary" data-toggle="collapse" data-target="#filterOptions">
+   <i class="fas fa-tasks"></i> Filter
+   </button>
 
-          <a href="#" class="btn btn-dark">Apply Now</a>
-        </div>
-      </div>
-     </div>
-     <div class="col-md-4">
-      <div class="card text-center m-3">
-         <div class="card-header">job posting</div>
-        <div class="card-body">
-          <h4 class="card-title">Xyz - company</h4>
-          <p class="card-text">Job Type: Freelancing</p>
-          <p class="card-text">
-            Salary: $50000
-          </p>
-          <p class="card-text">
-            Job Description:
-            <br> Lorem ipsum dolor sit amet consectetur adipisicing elit. Porro, magnam!
-          </p>
-          <a href="#" class="btn btn-dark">Apply Now</a>
-        </div>
-      </div>
-     </div>
-     <div class="col-md-4">
-      <div class="card text-center m-3">
-         <div class="card-header">job posting</div>
-        <div class="card-body">
-          <h4 class="card-title">Xyz - company</h4>
-          <p class="card-text">Job Type: Freelancing</p>
-          <p class="card-text">
-            Salary: $50000
-          </p>
-          <p class="card-text">
-            Job Description:
-            <br> Lorem ipsum dolor sit amet consectetur adipisicing elit. Porro, magnam!
-          </p>
-          <a href="#" class="btn btn-dark">Apply Now</a>
-        </div>
-      </div>
-     </div>
-   </div>
+   <div class="collapse form-check mt-3" id="filterOptions">
+   <div class="mb-1">
 
+     <input class="form-check-input" type="radio" name="posting" id="myposting" value="<?php echo $_SESSION['id']?>" checked>
+      <label class="form-check-label" for="myposting">My Posting</label>
+   </div> 
+    <br>
+    <div>
+      <input class="form-check-input" type="radio" name="posting" id="allpostings" value='all'>
+      <label class="form-check-label" for="allpostings">All Postings</label>
+
+    </div>
+     
+    <button data-target="#filterOptions" data-toggle="collapse" class="btn btn-secondary d-block ml-auto" onclick="setup('customview')">
+      Apply Filter
+    </button>
    </div>
- </section>
+   <hr>
+  <div class="row">
+    <div id="ack" style="display:none;">
+      No data to display
+    </div>
+      <table class="offset-md-2 col-md-8 table table-bordered table-hover  text-center" id="postingTable">
+</table>
+   </div>
+        
+ </div>
+ </div>
+ 
+ 
 
  <!--Section for posting job -->
 
  <section id="job-posting-form" class="my-3 p-5">
-  <div class="container">
+   
+   
+   <div class="container">
+    <h5 class="text-center pt-3">Add a Job Posting</h5>
     <div class="row">
       <div class="col p-3">
         <form>

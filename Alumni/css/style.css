@@ -149,3 +149,22 @@ label{
   letter-spacing: 2px;
   font-weight: bolder;
 }
+input[type=radio]{
+  height:30px;
+  width: 20px;
+}
+
+
+tr:not(:first-child):hover{
+   background: rgba(156, 154, 154, 0.4);
+   cursor: pointer;
+}
+.posting-outline
+{
+  background: rgba(156, 154, 154, 0.4);
+}
+h5
+{
+  font-family: 'Poppins', sans-serif;
+  font-weight: bolder;
+}

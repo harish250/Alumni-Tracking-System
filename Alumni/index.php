@@ -17,13 +17,13 @@
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css"
         integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous" />
-    <link rel="stylesheet" href="css/style.css">
-
+    
     <link
         href="https://fonts.googleapis.com/css?family=IBM+Plex+Sans:700i|Montserrat|Roboto|Raleway|Poppins:wght@600&display=swap"
         rel="stylesheet">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css"
         integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
+        <link rel="stylesheet" href="css/style.css">
 </head>
 
 <body onload=<?php echo "setup('load',$logged_in)"?>>
@@ -45,7 +45,7 @@
             <span class="logo-section mr-3">
                 <img src="img/download-removebg-preview.png" alt="" />
             </span>
-            <span class="navbar-brand mr-5">Alumni Tracking System</span>
+            <span class="navbar-brand">Alumni Tracking System</span>
         </a>
         <button class="navbar-toggler" data-toggle="collapse" data-target="#navbarNav">
             <span class="navbar-toggler-icon"></span>
@@ -87,11 +87,14 @@
                     data-target="#myloginmodal" id="loginButton">Login</button>
                 <button class="btn btn-lg btn-outline-dark mr-4" data-toggle="modal" data-target="#mysignupmodal"
                     type="button" id="signUp">Sign Up</button>
+             
             </div>
 
             <span class="navbar-text mr-2" id="loggedInAs">
 
             </span>
+
+            <a href="signout.php" class="btn btn-lg btn-outline-dark mr-2 text-decoration-none d-none" id="signoutButton">Sign Out</a>
 
             <a data-toggle="modal" data-target="#editProfile">
                 <span class="fas fa-user-circle fa-3x"></span>

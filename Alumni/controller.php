@@ -6,7 +6,11 @@ $action = $_REQUEST['action'];
 
 switch($action)
 {
-    case 'job_posting':$id = $_REQUEST['id'];
+    case 'showdescription':
+                        $jobid=$_REQUEST['jobid'];
+                        echo json_encode((new Alumni())->getDescription($jobid));
+                        break;
+    case 'customview':$id = $_REQUEST['id'];
                         echo json_encode((new Alumni())->getJobPostings($id));
                         break;
     case 'login':
