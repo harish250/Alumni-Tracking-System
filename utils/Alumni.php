@@ -73,7 +73,7 @@ class Alumni
         $conn = DBConnection::getConn();
 
         $sql = "insert into ".DBConstants::$JOB_POSTING_TABLE."(alumni_id, company, salary, type, description) 
-        values('$jobid', '$company', '$sal', '$type', '$desc')";
+        values('$jobid', '$company', $sal, '$type', '$desc')";
 
         $result = $conn->query($sql);
         $conn->close();

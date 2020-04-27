@@ -51,6 +51,7 @@ function login(data, status) {
       $("#myloginmodal small").removeClass("text-danger");
       $("#myloginmodal small").addClass("text-success");
       $("#myloginmodal small").text("successfull");
+      
       makeNecessaryChanges(data);
     } else {
       $("#myloginmodal small").text("Invalid username/password");

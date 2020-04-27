@@ -176,15 +176,16 @@ if(!isset($_SESSION['id']))
                 </div>
                 <div class="modal-body">
                     <!-- type and salary -->
-                    <div class="row">
-                        <div class="col offset-2 offset-sm-2 col-sm-4 " id="type"></div>
-                        <div class="offset-2 col col-sm-4" id="salary"></div>
-                    </div>
-                    <!-- job Description -->
-                    <div class="row">
-                        <div class="col-12">Job Description: </div>
-                        <div class="col-12" id="description"></div>
-                    </div>
+                    <dl class="row">
+                        <dt class="col-2">Type: </dt>
+                        <dd class="col-10" id="type"></dd>
+                        <dt class="col-2" >Salary: </dt>
+                        <dd class="col-10" id="salary"></dd>
+                        <dt class="col-2">Description: </dt>
+                        <dd class="col-10" id="description"></dd>
+
+                    </dl>
+                    
                 </div>
                 <div class="modal-footer">
                     <!-- <a href="mailto:" class="btn btn-success">Apply Now</a> -->
@@ -320,6 +321,7 @@ if(!isset($_SESSION['id']))
 
                         <div class="form-group text-center">
                             <button type="button" class="btn btn-lg btn-secondary" onclick="setup('post')">Post</button>
+                            <span class="lead" id="post_ack"></span>
                         </div>
                     </form>
                 </div>

@@ -101,23 +101,23 @@ function makeModal(data,status)
         var divide = (days, val, append)=>{
             temp = Math.floor(days/val);
             console.log(temp,append);
-            return (temp)?`${temp,append} `:"";
+            return (temp)?temp+""+append+" ":"";
         }
 
         custom = "";
-        custom += divide(days_ago,30,"M");
+        custom += divide(days_ago,30,"m");
         days_ago %= 30;
-        custom += divide(days_ago,7,"W");
+        custom += divide(days_ago,7,"w");
         days_ago %= 7;
-        custom += divide(days_ago,1,"D");
+        custom += divide(days_ago,1,"d");
         
         return (custom)?`${custom} Ago`:"Today";
     }
 
     data = JSON.parse(data)[0];
     $('#jobDescriptionModal .modal-title').text(`${data.company}`);
-    $('#type').text(`Type: ${data.type}`);
-    $('#salary').text(`salary: ${data.salary}`);
+    $('#type').text(` ${data.type}`);
+    $('#salary').text(` ${data.salary}`);
 
     $('#description').text(data.description);
 
@@ -158,10 +158,16 @@ function postAck(data,status)
     if(data)
     {
         console.log("successfully posted");
+        $('#post_ack').attr('class','text-success').text('Successfully Posted');
         setup('customview'); //if the job was posted successfully , load the table again to view the Alumni his post
     }
     else
+    {
+        $('#post_ack').attr('class','text-danger').text('Failed to post');
+
         console.log("failed");
+
+    }
 }
 
 function delPostAck(data, status)
@@ -169,6 +175,7 @@ function delPostAck(data, status)
     if(data)
     {
         setup('customview');
+
     }
     else
     {
