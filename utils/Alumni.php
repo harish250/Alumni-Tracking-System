@@ -11,6 +11,7 @@ class Alumni
         $condition = ($id == 'all')?'':" where alumni_id = '$id'";
         
         $sql .= $condition;
+        $sql .= " order by date_posted desc"; //just to place the recent ones first
         $result = $conn->query($sql);
 
         $conn->close();
@@ -54,16 +55,42 @@ class Alumni
         
         return [];
     }
-    public function getDescription(string $jobid):array
+    public function getParticularPosting(string $jobid):array
     {
         $conn = DBConnection::getConn();
-        $sql="select * from ".DBConstants::$JOB_POSTING_TABLE." where job_id='$jobid'";
+        $sql="select a.email, j.* from ".DBConstants::$ALUMNI_TABLE." a, ".DBConstants::$JOB_POSTING_TABLE." j 
+        where job_id='$jobid' and a.alumni_id = j.alumni_id";
         $result=$conn->query($sql);
     
         $conn->close(); 
 
         if($result->num_rows>0)
         return $result->fetch_all(MYSQLI_ASSOC);
+    }
+
+    public function post(string $jobid, string $company, string $sal, string $type, string $desc):bool
+    {
+        $conn = DBConnection::getConn();
+
+        $sql = "insert into ".DBConstants::$JOB_POSTING_TABLE."(alumni_id, company, salary, type, description) 
+        values('$jobid', '$company', '$sal', '$type', '$desc')";
+
+        $result = $conn->query($sql);
+        $conn->close();
+
+        return $result;
+    }
+
+    public function delPost(string $job_id)
+    {
+        $conn = DBConnection::getConn();
+        
+        $sql = 'delete from '.DBConstants::$JOB_POSTING_TABLE." where job_id = '$job_id'";
+        
+        $result = $conn->query($sql);
+        $conn->close();
+
+        return $result;
     }
 }
 ?>

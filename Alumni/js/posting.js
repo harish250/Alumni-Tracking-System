@@ -9,6 +9,21 @@ function setup(param)
             url = CONTROLLER_LINK+`?action=customview&id=${val}`;
             $.get(url, makeTable);
             break;
+        case 'post':
+            company = $('#post_company').val();
+            type = $('#job-posting-form option:selected').val();
+            sal = $('#post_salary').val();
+            desc = $('#post_desc').val();
+
+            $.post(CONTROLLER_LINK,
+                {
+                    action:"post",
+                    company:company,
+                    type:type,
+                    salary:sal,
+                    description:desc,
+                },
+            postAck)
     }
 }
 
@@ -20,9 +35,7 @@ function makeTable(data, status)
     if(data.length == 0)
     {
         $('#postingTable').hide(500);
-        // $('#ack').removeClass("d-none");
         $('#ack').show(500);
-        console.log("no data");
         return;
     }
     var makeThead = ()=>{
@@ -47,8 +60,10 @@ function makeTable(data, status)
             'data-target':'#jobDescriptionModal'
                 });
         
-        tr.click(function(){
-            showDescription(posting.job_id);
+        tr.click(function()
+        {
+            url=CONTROLLER_LINK+`?action=showdescription&jobid=${posting.job_id}`;
+            $.get(url,makeModal);
         });
         tr.append(maketd(posting.company), 
         maketd(posting.type),
@@ -70,25 +85,93 @@ function makeTable(data, status)
     $('#postingTable').show(500);
 }
 
-function showDescription(job_id)
-{
-    var url=CONTROLLER_LINK+`?action=showdescription&jobid=${job_id}`;
-      $.get(url,makeModal);
-}
+// function showDescription(job_id)
+// {
+//     var url=CONTROLLER_LINK+`?action=showdescription&jobid=${job_id}`;
+//       $.get(url,makeModal);
+// }
 
 function makeModal(data,status)
 {
+
+    var getFormatedDate = (date)=>{
+        curr_date = new Date();
+        days_ago = (curr_date.getMonth() - date_posted.getMonth())*30 + curr_date.getDate() - date_posted.getDate();
+        
+        var divide = (days, val, append)=>{
+            temp = Math.floor(days/val);
+            console.log(temp,append);
+            return (temp)?`${temp,append} `:"";
+        }
+
+        custom = "";
+        custom += divide(days_ago,30,"M");
+        days_ago %= 30;
+        custom += divide(days_ago,7,"W");
+        days_ago %= 7;
+        custom += divide(days_ago,1,"D");
+        
+        return (custom)?`${custom} Ago`:"Today";
+    }
+
     data = JSON.parse(data)[0];
-    console.log(data);
     $('#jobDescriptionModal .modal-title').text(`${data.company}`);
     $('#type').text(`Type: ${data.type}`);
     $('#salary').text(`salary: ${data.salary}`);
 
     $('#description').text(data.description);
-    $('#jobDescriptionModal .modal-footer a').attr("href",`mailto:${data.email}`);
 
-    var date=data.date_posted;
-    var temp =date.split(" ");
-    date = new Date(temp[0]+'T'+temp[1]+'Z');
-    $('#jobDescriptionModal .modal-footer span').text(date);
+    // the final one left is to display "Apply Now" Option or "delete post" option
+    // $('#jobDescriptionModal .modal-footer a').attr("href",`mailto:${data.email}`);
+    modal_footer = $('#jobDescriptionModal .modal-footer');
+    modal_footer.find(".btn:first-child").remove();
+    // delete option is to be provided for a job_posting if the id in session matches the alumni_id of the posting
+    id = $('#session_id').val(); //this has the id value of the session stored
+    if(id == data.alumni_id)
+    {
+        del_option = $('<button></button>').attr("class","btn btn-danger")
+                                            .text("Delete Post")
+                                            .click(function(){
+                                                url = CONTROLLER_LINK+`?action=delpost&job_id=${data.job_id}`;
+                                                $.get(url, delPostAck);
+                                            });
+        modal_footer.prepend(del_option);    
+    }
+    else
+    {
+        apply_option = $('<a></a>').attr({
+            "href":`mailto:${data.email}`,
+            "class":"btn btn-success"
+        }).text("Apply Now");
+        modal_footer.prepend(apply_option);
+    }
+
+    var date_posted = new Date(data.date_posted);
+    // process the date to give it as Months-Weeks-Days
+    fmt_date = getFormatedDate(date_posted);
+
+    $('#jobDescriptionModal .modal-footer span').text(fmt_date);
+}
+
+function postAck(data,status)
+{
+    if(data)
+    {
+        console.log("successfully posted");
+        setup('customview'); //if the job was posted successfully , load the table again to view the Alumni his post
+    }
+    else
+        console.log("failed");
+}
+
+function delPostAck(data, status)
+{
+    if(data)
+    {
+        setup('customview');
+    }
+    else
+    {
+        console.log('failed to del post');
+    }
 }
