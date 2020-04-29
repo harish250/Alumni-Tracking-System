@@ -92,5 +92,70 @@ class Alumni
 
         return $result;
     }
+    public function uploadFile(string $id, array $files):array
+    {
+        
+        $conn = DBConnection::getConn();
+        
+        $insert_stmt = $conn->prepare("insert into ".DBConstants::$GALLERY_TABLE."(alumni_id, image_url) values('$id', ?)");
+        $del_stmt = $conn->prepare("delete * from ".DBConstants::$GALLERY_TABLE." where 
+                    alumni_id = '$id' and image_url = ?");
+        
+        $successful = [];
+        $failed = [];
+        
+        $imgFolder='img/'; //target folder
+        
+        foreach($files as $file)
+        {
+            $dest = uniqid($imgFolder);  //inorder to get-rid of conflicts due to same img name
+            $type = explode("/",$file['type'])[1]; //fetching the ext of the img
+            $dest .= ".$type"; //making the full dest img's path
+            
+            $insert_stmt->bind_param('s',$dest);
+            $ack = $insert_stmt->execute();
+            
+            if($ack) //if inserted successfully
+            {
+                $src =$file['tmp_name'];
+                $ack = move_uploaded_file($src, $dest);
+                
+                if(!$ack) //if it fails to move the file then we are supposed to remove its entry from the table
+                {
+                    $del_stmt->bind_param('s',$dest);
+                    $del_stmt->execute();
+                    array_push($failed, $file['name']);
+                }
+                else
+                {
+                    array_push($successful, $file['name']);
+                }
+            }
+            else
+            {
+                array_push($failed, $file['name']);
+            }
+        }
+
+        $info['successful'] = $successful;
+        $info['failed'] = $failed;
+         
+        return $info;
+    }
+
+    public function getGallery()
+    {
+        $conn = DBConnection::getConn();
+        $sql = "select a.username, g.image_url 'url', g.date_uploaded from ".DBConstants::$ALUMNI_TABLE." a, "
+        .DBConstants::$GALLERY_TABLE." g where a.alumni_id = g.alumni_id";
+
+        $result = $conn->query($sql);
+
+        $conn->close();
+        if($result->num_rows > 0)
+            return $result->fetch_all(MYSQLI_ASSOC);
+        
+        return [];
+    }
 }
 ?>

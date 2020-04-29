@@ -29,7 +29,7 @@ function setup(param, logged_in = false) {
 }
 
 function changeHrefs() {
-  $("#gallerylink").attr("href", "gallery.html");
+  $("#gallerylink").attr("href", "gallery.php");
   $("#postinglink").attr("href", "posting.php");
   $("#eventslink").attr("href", "events.html");
   $("#groupcharlink").attr("href", "#");

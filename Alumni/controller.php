@@ -6,6 +6,19 @@ $action = $_REQUEST['action'];
 
 switch($action)
 {
+
+    // gallery.php
+
+    case 'upload':
+        $id = $_SESSION['id'];
+        echo json_encode((new Alumni())->uploadFile($id, $_FILES));
+        break;
+    
+    case 'getgallery':
+        echo json_encode((new Alumni())->getGallery());
+        break;
+        
+    // posting.php
     case 'post':
         $company = $_REQUEST['company'];
         $sal = $_REQUEST['salary'];
@@ -30,7 +43,8 @@ switch($action)
         $job_id = $_REQUEST['job_id'];
         echo (new Alumni())->delPost($job_id);
         break;            
-                    
+    
+        // index.php
     case 'login':
         $username = $_REQUEST['username'];
         $pass = $_REQUEST['pass'];
@@ -45,6 +59,7 @@ switch($action)
         }
         echo false;
         break;
+
     case 'achievements':
         $achs = (new Alumni())->getAchievements();
         echo json_encode($achs);

@@ -65,7 +65,7 @@ if(!isset($_SESSION['id']))
                             Services
                         </button>
                         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                            <a class="dropdown-item" href="gallery.html">Gallery</a>
+                            <a class="dropdown-item" href="gallery.php">Gallery</a>
                             <a class="dropdown-item" href="#">Job Posting</a>
                             <a class="dropdown-item" href="events.html">Events</a>
                             <a class="dropdown-item" href="#">Group Chat</a>
