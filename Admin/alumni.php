@@ -29,7 +29,7 @@
 
 
             <ul class="list-unstyled components">
-                <li class="active">
+                <li>
                     <a href="#homeSubmenu">Home</a>
 
                 </li>
@@ -37,7 +37,7 @@
                 <li>
                     <a href="#">Post an event</a>
                 </li>
-                <li>
+                <li class="active">
                     <a href="#pageSubmenu">Our Alumni</a>
                 </li>
 

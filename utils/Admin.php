@@ -70,6 +70,54 @@ require_once('DBConnection.php');
             
             return [];
         }
+
+        function uploadEvent(string $title, string $sdatetime, string $edatetime, string $desc, $file):bool
+        {
+            $conn = DBConnection::getConn();
+
+            $insert_stmt = $conn->prepare("insert into ".DBConstants::$EVENT_TABLE."(title,description,start_date,end_date,image_url) values('$title','$desc','$sdatetime','$edatetime',?)");
+
+            $del_stmt = $conn->prepare("delete from ".DBConstants::$EVENT_TABLE." where image_url = ?");
+
+            $imgfolder = "img/";
+            $dest = uniqid($imgfolder);
+            $dest .= ".".explode('/',$file['type'])[1];     // file['type']  eg:image/png
+
+            $insert_stmt->bind_param('s',$dest);
+
+            $ack = $insert_stmt->execute();
+            echo "insert: ",$ack;
+            if($ack)
+            {
+                $src=$file['tmp_name'];
+                $ack = move_uploaded_file($src, $dest);
+                echo "move: ",$ack;
+
+                if(!$ack)
+                {
+                    $del_stmt->bind_param('s',$dest);
+                    $del_stmt->execute();
+                    return false;
+                }
+
+                return true;
+            }
+            return false;   
+        }
+
+        function getEvents():array
+        {
+            $conn = DBConnection::getConn();
+
+            $sql = "select * from ".DBConstants::$EVENT_TABLE." where end_date > now()";
+            $result = $conn->query($sql);
+            if($result->num_rows)
+            {
+                    return  $result->fetch_all(MYSQLI_ASSOC);
+            }
+            return [];
+
+        }
     }
 
     /*

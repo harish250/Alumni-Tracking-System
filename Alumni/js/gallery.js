@@ -27,7 +27,7 @@ function setup(params)
                 },
                 error: function(errResponse) {
                     console.log(errResponse);
-                }
+                }   
             });
             break;
         
