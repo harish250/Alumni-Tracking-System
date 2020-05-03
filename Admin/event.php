@@ -36,10 +36,10 @@
                 </li>
 
                 <li class="active">
-                    <a href="#">Post an event</a>
+                    <a href="#">Events</a>
                 </li>
                 <li>
-                    <a href="#pageSubmenu">Our Alumni</a>
+                    <a href="alumni.php">Our Alumni</a>
                 </li>
 
             </ul>
@@ -95,11 +95,11 @@
                  <h2 class="text-center mb-3">Post an Event</h2>
                 <form id="postForm" class="p-2">
                     <div class="form-group row">
-                        <label for="title" class="col-md-2">Title</label>
+                        <label for="title" class="col-md-2 col-form-label">Title</label>
                         <input type="text" name="title" id="title" placeholder="title" class="col-md-10 form-control">
                     </div>
                     <div class="form-group row">
-                        <label for="startdate" class="col-md-2">Start Date</label>
+                        <label for="startdate" class="col-md-2 col-form-label">Start Date</label>
                         <input type="text" name="startdate" id="startdate" placeholder="yyyy-mm-dd" class="col-md-4 form-control mr-2">
                         <input type="text" name="starttime" id="starttime" placeholder="hh:mm" class="col-md-2 form-control mr-2">
                         <select name="ampm" id="startampm" class="form-control col-md-1 mr-2">
@@ -109,7 +109,7 @@
                         <small class="offset-md-2 col-4 text-muted">Eg. 2020-2-10</small>
                     </div>
                     <div class="form-group row">
-                    <label for="enddate" class="col-md-2">End Date</label>
+                    <label for="enddate" class="col-md-2 col-form-label">End Date</label>
                     <input type="text" name="enddate" id="enddate" placeholder="yyyy-mm-dd" class="form-control col-md-4 mr-2">
                     <input type="text" name="endtime" id="endtime" placeholder="hh:mm" class="col-md-2 form-control mr-2">
                     <select name="ampm" id="endampm" class="form-control col-md-1 mr-2">
@@ -118,7 +118,7 @@
                         </select>
                     </div>
                     <div class="form-group row">
-                        <label for="description" class="col-md-2">Description</label>
+                        <label for="description" class="col-md-2 col-form-label">Description</label>
                         <textarea name="description" id="description" cols="30" rows="10" placeholder="Description" class="col-md-10 form-control"></textarea>
                     </div>
                    
@@ -135,8 +135,6 @@
                     <small id="promptmsg"></small>
                 </div>
             </div>
-
-
         </div>
 
 

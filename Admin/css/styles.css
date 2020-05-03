@@ -138,6 +138,12 @@ a[data-toggle="collapse"] {
 	 background-color:whitesmoke;
 	 cursor: pointer;
 }
+
+#eventcontent img{
+	height: 300px;
+	width: 300px;
+}
+
 @media(max-width:768px){
 	#sidebar{margin-left: -250px;}
 	#sidebar.active{

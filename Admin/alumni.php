@@ -35,10 +35,10 @@
                 </li>
 
                 <li>
-                    <a href="#">Post an event</a>
+                    <a href="event.php">Events</a>
                 </li>
                 <li class="active">
-                    <a href="#pageSubmenu">Our Alumni</a>
+                    <a href="#">Our Alumni</a>
                 </li>
 
             </ul>

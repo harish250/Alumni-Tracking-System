@@ -50,15 +50,16 @@ constraint fk_gallery_alumi_id foreign key(alumni_id) references alumni(alumni_i
 );
 
 -- Events table
-drop table if exists events;
+drop table if exists event;
 
 create table event(
 event_id int auto_increment not null,
-event_title varchar(20) not null, 
+title varchar(20) not null, 
+description text(200) not null,
 date_posted datetime not null default now(),
 start_date datetime not null,
 end_date datetime not null,
-event_image_url varchar(250) not null,
+image_url varchar(250) not null,
 constraint pk_event_id primary key(event_id),
 constraint chk_events check(start_date < end_date)
 );

@@ -74,7 +74,6 @@ require_once('DBConnection.php');
         function uploadEvent(string $title, string $sdatetime, string $edatetime, string $desc, $file):bool
         {
             $conn = DBConnection::getConn();
-
             $insert_stmt = $conn->prepare("insert into ".DBConstants::$EVENT_TABLE."(title,description,start_date,end_date,image_url) values('$title','$desc','$sdatetime','$edatetime',?)");
 
             $del_stmt = $conn->prepare("delete from ".DBConstants::$EVENT_TABLE." where image_url = ?");
@@ -86,12 +85,10 @@ require_once('DBConnection.php');
             $insert_stmt->bind_param('s',$dest);
 
             $ack = $insert_stmt->execute();
-            echo "insert: ",$ack;
             if($ack)
             {
                 $src=$file['tmp_name'];
                 $ack = move_uploaded_file($src, $dest);
-                echo "move: ",$ack;
 
                 if(!$ack)
                 {
@@ -117,6 +114,29 @@ require_once('DBConnection.php');
             }
             return [];
 
+        }
+
+        function deleteEvent(int $event_id):bool
+        {
+            $conn = DBConnection::getConn();
+            
+            // delete the post and its related image
+            
+            $sql = "select image_url from ".DBConstants::$EVENT_TABLE." where event_id = $event_id";
+            
+            $result = $conn->query($sql);
+            if($result->num_rows)
+            {
+                $img_url = $result->fetch_assoc()['image_url'];
+                $ack = unlink($img_url);
+                if($ack)
+                {
+                    $sql = "delete from ".DBConstants::$EVENT_TABLE." where event_id = $event_id";
+                    $conn->query($sql);
+                    return true;
+                }
+            }
+            return false;
         }
     }
 
