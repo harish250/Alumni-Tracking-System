@@ -2,6 +2,7 @@
 session_start();
 
 require_once('../utils/Admin.php');
+require_once('../utils/Alumni.php');
 
 $action = $_REQUEST['action'];
 
@@ -44,6 +45,25 @@ switch($action)
         $event_id = $_REQUEST['event_id'];
         echo json_encode((new Admin())->deleteEvent($event_id));
         break;
+        
+    case "postachievement":
+        $email = $_REQUEST['email'];
+        $desc = $_REQUEST['description'];
+        $file = $_FILES['upload'];
+        echo (new Admin())->postAchievement($email,$desc,$file);
+        break;
+        
+    case 'names':
+        echo json_encode((new Admin())->getAlumniNames());
+        break;
+        
+    case 'getachievements':
+        echo json_encode((new Alumni())->getAchievements());
+        break;
+        
+    case 'deleteachievement':
+        $url = $_REQUEST['url'];
+        echo (new Admin())->deleteAchievement($url);
 }
 
 function timeConv_12_to_24(string $time,string $ampm)

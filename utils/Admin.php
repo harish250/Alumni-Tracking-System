@@ -74,29 +74,19 @@ require_once('DBConnection.php');
         function uploadEvent(string $title, string $sdatetime, string $edatetime, string $desc, $file):bool
         {
             $conn = DBConnection::getConn();
-            $insert_stmt = $conn->prepare("insert into ".DBConstants::$EVENT_TABLE."(title,description,start_date,end_date,image_url) values('$title','$desc','$sdatetime','$edatetime',?)");
-
-            $del_stmt = $conn->prepare("delete from ".DBConstants::$EVENT_TABLE." where image_url = ?");
 
             $imgfolder = "img/";
             $dest = uniqid($imgfolder);
             $dest .= ".".explode('/',$file['type'])[1];     // file['type']  eg:image/png
-
-            $insert_stmt->bind_param('s',$dest);
-
-            $ack = $insert_stmt->execute();
+            
+            $src=$file['tmp_name'];
+            $ack = move_uploaded_file($src, $dest);
+   
             if($ack)
             {
-                $src=$file['tmp_name'];
-                $ack = move_uploaded_file($src, $dest);
-
-                if(!$ack)
-                {
-                    $del_stmt->bind_param('s',$dest);
-                    $del_stmt->execute();
-                    return false;
-                }
-
+                $sql = "insert into ".DBConstants::$EVENT_TABLE."(title,description,start_date,end_date,image_url)
+                        values('$title','$desc','$sdatetime','$edatetime','$dest')";    
+                $conn->query($sql);
                 return true;
             }
             return false;   
@@ -135,6 +125,66 @@ require_once('DBConnection.php');
                     $conn->query($sql);
                     return true;
                 }
+            }
+            return false;
+        }
+                 
+        function getAlumniNames():array
+        {
+            $conn = DBConnection::getConn();
+            $sql = "select username, email from ".DBConstants::$ALUMNI_TABLE." order by username,email";
+            $result = $conn->query($sql);
+
+            if($result->num_rows > 0)
+                return $result->fetch_all(MYSQLI_ASSOC);
+            
+            return [];
+        }
+
+        function postAchievement(string $email, string $desc, $file):bool
+        {
+            $conn = DBConnection::getConn();
+            $sql = "select alumni_id from ".DBConstants::$ALUMNI_TABLE." where email='$email'";
+            
+            $result = $conn->query($sql);
+            $alumni_id = $result->fetch_assoc()['alumni_id'];
+
+            $imgfolder = '../Alumni/img/';
+            $dest = uniqid($imgfolder); //without the extension of the image
+            
+            $dest .= ".".explode("/",$file['type'])[1];
+            
+            // moving the file
+            $src=$file['tmp_name'];
+            $ack = move_uploaded_file($src, $dest);
+            
+            if($ack)
+            {
+                $sql = "insert into ".DBConstants::$CAREER_TABLE."(alumni_id, description, alumni_photo_url) 
+                values('$alumni_id', '$desc','$dest')";
+                $conn->query($sql);
+                return true;
+            }
+            
+            return false;
+        }
+
+        function deleteAchievement(string $url):bool
+        {
+            /*
+                url is a relative path to the file , ppl say that unlink may have prb with relative path
+                as of now it seems to work, but if it doesn't in future, then just try applying the
+                sol as suggested in the following link
+                https://stackoverflow.com/questions/5006569/php-does-unlink-function-works-with-a-path
+            */
+            
+            $conn = DBConnection::getConn();
+            $ack = unlink($url);
+            if($ack)
+            {
+                $sql = "delete from ".DBConstants::$CAREER_TABLE." where alumni_photo_url = '$url';";
+                $conn->query($sql);
+                return true;
             }
             return false;
         }
