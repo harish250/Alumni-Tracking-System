@@ -1,7 +1,7 @@
 <?php
 session_start();
 require_once('../utils/Alumni.php');
-
+require_once('../utils/Admin.php');
 $action = $_REQUEST['action'];
 
 switch($action)
@@ -63,6 +63,12 @@ switch($action)
     case 'achievements':
         $achs = (new Alumni())->getAchievements();
         echo json_encode($achs);
+        break;
+    
+    //events.php
+    case 'loadevents':
+        echo json_encode((new Admin())->getEvents());
+        break;
 }
 
 

@@ -75,7 +75,7 @@ require_once('DBConnection.php');
         {
             $conn = DBConnection::getConn();
 
-            $imgfolder = "img/";
+            $imgfolder = "../Admin/img/";
             $dest = uniqid($imgfolder);
             $dest .= ".".explode('/',$file['type'])[1];     // file['type']  eg:image/png
             

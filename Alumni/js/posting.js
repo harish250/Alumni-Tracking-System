@@ -96,7 +96,7 @@ function makeModal(data,status)
 
     var getFormatedDate = (date)=>{
         curr_date = new Date();
-        days_ago = (curr_date.getMonth() - date_posted.getMonth())*30 + curr_date.getDate() - date_posted.getDate();
+        days_ago = (curr_date.getMonth() - date.getMonth())*30 + curr_date.getDate() - date.getDate();
         
         var divide = (days, val, append)=>{
             temp = Math.floor(days/val);
