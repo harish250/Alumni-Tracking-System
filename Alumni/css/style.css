@@ -129,7 +129,7 @@ label{
 {
   background: rgba(70, 75, 71, 0.2);
 }
-.media
+.media:hover
 {
   box-shadow:         3px 3px 5px 6px #ccc;
 }
@@ -137,6 +137,11 @@ label{
 {
   background-color: rgba(148, 147, 143, 0.3);
   /* rgba(124, 123, 106, 0.3); */
+}
+
+#events-content img{
+	height: 200px;
+	width: 200px;
 }
 
 #job-posting-form label

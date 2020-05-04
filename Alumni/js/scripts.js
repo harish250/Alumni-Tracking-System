@@ -31,7 +31,7 @@ function setup(param, logged_in = false) {
 function changeHrefs() {
   $("#gallerylink").attr("href", "gallery.php");
   $("#postinglink").attr("href", "posting.php");
-  $("#eventslink").attr("href", "events.html");
+  $("#eventslink").attr("href", "events.php");
   $("#groupcharlink").attr("href", "#");
   $(".navbar .dropdown-menu").children().removeAttr("data-toggle");
 }
