@@ -1,10 +1,12 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Achievements</title>
+
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
@@ -15,12 +17,12 @@
     <link
         href="https://fonts.googleapis.com/css?family=IBM+Plex+Sans:700i|Montserrat|Roboto|Raleway|Poppins:wght@600&display=swap"
         rel="stylesheet">
-        <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <link rel="stylesheet" href="css/styles.css">
-    <title>Events</title>
 </head>
 
-<body onload="setup('loadevents')">
+
+<body onload="setup('load')">
 
     <div class="wrapper">
         <nav id="sidebar">
@@ -32,17 +34,17 @@
             <ul class="list-unstyled components">
                 <li>
                     <a href="#homeSubmenu">Home</a>
-
                 </li>
 
-                <li class="active">
-                    <a href="#">Events</a>
+                <li>
+                    <a href="event.php">Events</a>
                 </li>
                 <li>
                     <a href="alumni.php">Our Alumni</a>
                 </li>
-                <li>
-                    <a href="achievements.php">Achievements</a>
+
+                <li class="active">
+                    <a href="#">Achievements</a>
                 </li>
 
             </ul>
@@ -75,69 +77,44 @@
                 </div>
             </nav>
 
-
-         <div class="container" id="eventcontent">
-         <div class="row">
-         <!-- <div class="media mt-4 col" data-aos="fade-right" data-aos-duration="2000">
-             <a class="d-flex align-self-center" href="#">
-                   <img src="#" alt="" class="img-fluid ml-5">
-             </a>
-             <div class="media-body m-5">
-                 <h5 id="eventtitle">Kmit Evening</h5>
-                 <p class="d-none d-sm-block" id="eventdesc"></p>
-                 <h5 id="eventtime">Timmings 6:30pm to 9:30pm</h5>
-                 <h5 id="">Date 25/03/2020</h5>
-             </div>
-             
-         </div> -->
-            </div>
-         </div>
-
-            <div class="container p-3" id="postevent">
+            <div class="container-fluid" id="achievements">
                  
-                 <h2 class="text-center mb-3">Post an Event</h2>
-                <form id="postForm" class="p-2">
+            </div>
+
+            
+            <div class="container" id="achievementcontent">
+                <h1 class="text-center">Add an Achievement</h1>
+                <form id="achievementsform">
+
+                    <datalist id="names">
+                    </datalist>
+
                     <div class="form-group row">
-                        <label for="title" class="col-md-2 col-form-label">Title</label>
-                        <input type="text" name="title" id="title" placeholder="title" class="col-md-10 form-control">
+                        <label for="alumni_name" class="col-md-2">College id</label>
+                        <input type="text" list="names" class="form-control col-md-10" id="email"
+                            name="email" placeholder="Alumni name">
                     </div>
                     <div class="form-group row">
-                        <label for="startdate" class="col-md-2 col-form-label">Start Date</label>
-                        <input type="text" name="startdate" id="startdate" placeholder="yyyy-mm-dd" class="col-md-4 form-control mr-2">
-                        <input type="text" name="starttime" id="starttime" placeholder="hh:mm" class="col-md-2 form-control mr-2">
-                        <select name="ampm" id="startampm" class="form-control col-md-1 mr-2">
-                            <option value="am">am</option>
-                            <option value="pm">pm</option>
-                        </select>
-                        <small class="offset-md-2 col-4 text-muted">Eg. 2020-2-10</small>
+                        <label for="description" class="col-md-2">Description</label>
+                        <textarea name="description" id="description" cols="30" rows="10"
+                            class="col-md-10 form-control">
+                            </textarea>
                     </div>
                     <div class="form-group row">
-                    <label for="enddate" class="col-md-2 col-form-label">End Date</label>
-                    <input type="text" name="enddate" id="enddate" placeholder="yyyy-mm-dd" class="form-control col-md-4 mr-2">
-                    <input type="text" name="endtime" id="endtime" placeholder="hh:mm" class="col-md-2 form-control mr-2">
-                    <select name="ampm" id="endampm" class="form-control col-md-1 mr-2">
-                            <option value="am">am</option>
-                            <option value="pm">pm</option>
-                        </select>
+                        <input type="file" name="upload" id="upload" accept="image/*" value="upload"
+                            class="form-control offset-md-2 col-md-10">
                     </div>
-                    <div class="form-group row">
-                        <label for="description" class="col-md-2 col-form-label">Description</label>
-                        <textarea name="description" id="description" cols="30" rows="10" placeholder="Description" class="col-md-10 form-control"></textarea>
-                    </div>
-                   
-                    <div class="form-group row">
-                        <input type="file" name="upload" id="upload" accept="image/*" value="upload" class="form-control offset-md-2 col-md-10">
-                    </div>
-                    <div class="form-group text-center">
-                    <input type="button" value="Post" name="postbutton" class="btn btn-lg btn-primary" id="postbutton" onclick="setup('postevent')">
-                   
+                    <div class="text-center">
+                        <button class="btn btn-success" disabled type="button"
+                        onclick="setup('postachievement')">Add Achievement</button>
                     </div>
                 </form>
-                <div class="text-center">
-
-                    <small id="promptmsg"></small>
+                <div class="text-center" id="divpost">
+                     <h4><span id="ackpost"></span></h4>  
                 </div>
             </div>
+
+           
         </div>
 
 
@@ -158,7 +135,7 @@
         integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous">
     </script>
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-    <script src="js/events.js"></script>
+    <script src="js/achievements.js"></script>
     <script>
     $(document).ready(function() {
         $('#sidebarCollapse').on('click', function() {
@@ -166,13 +143,9 @@
         });
     });
     </script>
-<script>
+    <script>
     AOS.init();
-  </script>
-
-
-
-
+    </script>
 </body>
 
 </html>

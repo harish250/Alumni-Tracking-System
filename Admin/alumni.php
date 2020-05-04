@@ -40,6 +40,9 @@
                 <li class="active">
                     <a href="#">Our Alumni</a>
                 </li>
+                <li>
+                    <a href="achievements.php">Achievements</a>
+                </li>
 
             </ul>
 

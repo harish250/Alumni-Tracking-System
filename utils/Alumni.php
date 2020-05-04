@@ -44,7 +44,7 @@ class Alumni
     {
         $conn = DBConnection::getConn();
 
-        $sql = "select a.username 'alumni_name', c.achievement_desc 'desc', c.alumni_photo_url 'url' 
+        $sql = "select a.username 'alumni_name', c.description 'desc', c.alumni_photo_url 'url' 
         from ".DBConstants::$CAREER_TABLE.' c, '.DBConstants::$ALUMNI_TABLE.' a where a.alumni_id = c.alumni_id;';
 
         $result = $conn->query($sql);

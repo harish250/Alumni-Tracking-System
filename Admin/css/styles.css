@@ -102,27 +102,33 @@ a[data-toggle="collapse"] {
 	transform: scale(1.0,1.0);
 	cursor: pointer;
 }
+
+/* .card-footer:hover .btn{
+	display: block;
+	transition: all 0.7s ease;
+} */
+
 .card-footer .btn
 {
 	/* background: linear-gradient(rgb(73, 252, 2), rgba(47, 179, 7, 0.788)); */
 	
 	border-radius: 25px;
 }
-.card
+#alumnicontent .card
 {
 	text-align: center;
    border: 1px solid grey;
 
 }
-.card .card-title
+#alumnicontent .card .card-title
 {
 	font-size:30px;
 }
-.card .card-subtitle
+#alumnicontent .card .card-subtitle
 {
-	font-size: small;
+	font-size: small;		
 }
-.card-body .card-text
+#alumnicontent .card-body .card-text
 {
 	font-size: 25px;
 }

@@ -70,7 +70,7 @@ drop table if exists career_highlighting;
 
 create table career_highlighting(
 alumni_id varchar(10) not null,
-achievement_desc varchar(500) not null,
+description varchar(500) not null,
 alumni_photo_url varchar(250) not null,
 constraint fk_career_alumni_id foreign key(alumni_id) references alumni(alumni_id)
 );
