@@ -43,6 +43,9 @@
                 <li>
                     <a href="achievements.php">Achievements</a>
                 </li>
+                <li>
+                    <a href="posting.php">Job Postings</a>
+                </li>
 
             </ul>
 

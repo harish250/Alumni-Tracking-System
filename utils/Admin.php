@@ -87,6 +87,7 @@ require_once('DBConnection.php');
                 $sql = "insert into ".DBConstants::$EVENT_TABLE."(title,description,start_date,end_date,image_url)
                         values('$title','$desc','$sdatetime','$edatetime','$dest')";    
                 $conn->query($sql);
+                $conn->close();
                 return true;
             }
             return false;   
@@ -98,9 +99,10 @@ require_once('DBConnection.php');
 
             $sql = "select * from ".DBConstants::$EVENT_TABLE." where end_date > now()";
             $result = $conn->query($sql);
+            $conn->close();
             if($result->num_rows)
             {
-                    return  $result->fetch_all(MYSQLI_ASSOC);
+                return  $result->fetch_all(MYSQLI_ASSOC);
             }
             return [];
 
@@ -123,6 +125,7 @@ require_once('DBConnection.php');
                 {
                     $sql = "delete from ".DBConstants::$EVENT_TABLE." where event_id = $event_id";
                     $conn->query($sql);
+                    $conn->close();
                     return true;
                 }
             }
@@ -134,7 +137,7 @@ require_once('DBConnection.php');
             $conn = DBConnection::getConn();
             $sql = "select username, email from ".DBConstants::$ALUMNI_TABLE." order by username,email";
             $result = $conn->query($sql);
-
+            $conn->close();
             if($result->num_rows > 0)
                 return $result->fetch_all(MYSQLI_ASSOC);
             
@@ -163,6 +166,8 @@ require_once('DBConnection.php');
                 $sql = "insert into ".DBConstants::$CAREER_TABLE."(alumni_id, description, alumni_photo_url) 
                 values('$alumni_id', '$desc','$dest')";
                 $conn->query($sql);
+                $conn->close();
+
                 return true;
             }
             
@@ -184,9 +189,27 @@ require_once('DBConnection.php');
             {
                 $sql = "delete from ".DBConstants::$CAREER_TABLE." where alumni_photo_url = '$url';";
                 $conn->query($sql);
+                $conn->close();
                 return true;
             }
             return false;
+        }
+
+        function getJobPostings(string $val):array
+        {
+            $conn = DBConnection::getConn();
+
+            $val = str_replace("_","%",$val);
+
+            $sql="select job_id, company, type , salary from ".DBConstants::$JOB_POSTING_TABLE." where company like '%$val%' or 
+            type like '%$val%' or description like '%$val%'";
+
+            $result = $conn->query($sql);
+            $conn->close();
+            if($result->num_rows > 0)
+                return $result->fetch_all(MYSQLI_ASSOC);
+            
+            return [];
         }
     }
 

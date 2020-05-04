@@ -20,7 +20,36 @@
     <title>Events</title>
 </head>
 
-<body onload="setup('loadevents')">
+<body onload="setup('load')">
+
+    <div class="modal" id="jobDescriptionModal">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title text-center"></h5>
+                    <button class="close" data-dismiss="modal">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <!-- type and salary -->
+                    <dl class="row">
+                        <dt class="col-2">Posted by: </dt>
+                        <dd class="col-10" id="by"></dd>
+                        <dt class="col-2">Type: </dt>
+                        <dd class="col-10" id="type"></dd>
+                        <dt class="col-2" >Salary: </dt>
+                        <dd class="col-10" id="salary"></dd>
+                        <dt class="col-2">Description: </dt>
+                        <dd class="col-10" id="description"></dd>
+
+                    </dl>
+                    
+                </div>
+                <div class="modal-footer">
+                    <span class="text-muted ml-auto"></span>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <div class="wrapper">
         <nav id="sidebar">
@@ -35,8 +64,8 @@
 
                 </li>
 
-                <li class="active">
-                    <a href="#">Events</a>
+                <li >
+                    <a href="event.php">Events</a>
                 </li>
                 <li>
                     <a href="alumni.php">Our Alumni</a>
@@ -44,8 +73,8 @@
                 <li>
                     <a href="achievements.php">Achievements</a>
                 </li>
-                <li>
-                    <a href="posting.php">Job Postings</a>
+                <li class="active">
+                    <a href="#">Job Postings</a>
                 </li>
 
             </ul>
@@ -78,69 +107,33 @@
                 </div>
             </nav>
 
+            <div class="form-group row">
+                <div class="col-md-10">
+                    <input type="text" id="searchinput" onkeyup="pressSearchBtn(event)" class="form-control mb-2">
+                </div>
+                <div class="col-md-2">
+                    <button class="btn btn-outline-secondary" onclick="setup('load')">
+                        <span id="searchbtn" class="fas fa-search"></span>
+                        Search
+                    </button>
+                </div>
 
-         <div class="container" id="eventcontent">
-         <div class="row">
-         <!-- <div class="media mt-4 col" data-aos="fade-right" data-aos-duration="2000">
-             <a class="d-flex align-self-center" href="#">
-                   <img src="#" alt="" class="img-fluid ml-5">
-             </a>
-             <div class="media-body m-5">
-                 <h5 id="eventtitle">Kmit Evening</h5>
-                 <p class="d-none d-sm-block" id="eventdesc"></p>
-                 <h5 id="eventtime">Timmings 6:30pm to 9:30pm</h5>
-                 <h5 id="">Date 25/03/2020</h5>
-             </div>
-             
-         </div> -->
+                <small class="text-muted ml-2 ">
+                    eg: COMPANY/JOB_TYPE/ROLE (Web development,Machine Learning)
+                </small>
             </div>
-         </div>
 
-            <div class="container p-3" id="postevent">
-                 
-                 <h2 class="text-center mb-3">Post an Event</h2>
-                <form id="postForm" class="p-2">
-                    <div class="form-group row">
-                        <label for="title" class="col-md-2 col-form-label">Title</label>
-                        <input type="text" name="title" id="title" placeholder="title" class="col-md-10 form-control">
+            <div class="container" id="jobpostingcontent">
+                <div class="row">
+                    <div id="ack" class="text-muted mx-auto pt-5" style="display:none;">
+                        <h3><em>No data to display</em></h3>
                     </div>
-                    <div class="form-group row">
-                        <label for="startdate" class="col-md-2 col-form-label">Start Date</label>
-                        <input type="text" name="startdate" id="startdate" placeholder="yyyy-mm-dd" class="col-md-4 form-control mr-2">
-                        <input type="text" name="starttime" id="starttime" placeholder="hh:mm" class="col-md-2 form-control mr-2">
-                        <select name="ampm" id="startampm" class="form-control col-md-1 mr-2">
-                            <option value="am">am</option>
-                            <option value="pm">pm</option>
-                        </select>
-                        <small class="offset-md-2 col-4 text-muted">Eg. 2020-2-10</small>
-                    </div>
-                    <div class="form-group row">
-                    <label for="enddate" class="col-md-2 col-form-label">End Date</label>
-                    <input type="text" name="enddate" id="enddate" placeholder="yyyy-mm-dd" class="form-control col-md-4 mr-2">
-                    <input type="text" name="endtime" id="endtime" placeholder="hh:mm" class="col-md-2 form-control mr-2">
-                    <select name="ampm" id="endampm" class="form-control col-md-1 mr-2">
-                            <option value="am">am</option>
-                            <option value="pm">pm</option>
-                        </select>
-                    </div>
-                    <div class="form-group row">
-                        <label for="description" class="col-md-2 col-form-label">Description</label>
-                        <textarea name="description" id="description" cols="30" rows="10" placeholder="Description" class="col-md-10 form-control"></textarea>
-                    </div>
-                   
-                    <div class="form-group row">
-                        <input type="file" name="upload" id="upload" accept="image/*" value="upload" class="form-control offset-md-2 col-md-10">
-                    </div>
-                    <div class="form-group text-center">
-                    <input type="button" value="Post" name="postbutton" class="btn btn-lg btn-primary" id="postbutton" onclick="setup('postevent')">
-                   
-                    </div>
-                </form>
-                <div class="text-center">
-
-                    <small id="promptmsg"></small>
+                    
+                    <table class="col col-md-8 table table-bordered text-center" id="postingTable">
+                    </table>
                 </div>
             </div>
+
         </div>
 
 
@@ -161,7 +154,7 @@
         integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous">
     </script>
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-    <script src="js/events.js"></script>
+    <script src="js/posting.js"></script>
     <script>
     $(document).ready(function() {
         $('#sidebarCollapse').on('click', function() {

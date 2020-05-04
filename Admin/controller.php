@@ -64,6 +64,16 @@ switch($action)
     case 'deleteachievement':
         $url = $_REQUEST['url'];
         echo (new Admin())->deleteAchievement($url);
+        break;
+    case 'getpostings':
+        $val = $_REQUEST['val'];
+        echo json_encode((new Admin())->getJobPostings($val));
+        break;
+    
+    case 'showdescription':
+        $job_id = $_REQUEST['job_id'];
+        echo json_encode((new Alumni())->getParticularPosting($job_id));
+        break;
 }
 
 function timeConv_12_to_24(string $time,string $ampm)

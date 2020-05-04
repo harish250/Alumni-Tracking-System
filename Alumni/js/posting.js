@@ -40,7 +40,7 @@ function makeTable(data, status)
     }
     var makeThead = ()=>{
         var maketh = (val)=>{
-            return $("<th></th>").text(val)
+            return $("<th></th>").text(val);
         }
         thead = $("<thead></thead>");
         tr = $("<tr></tr>");

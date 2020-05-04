@@ -58,7 +58,7 @@ class Alumni
     public function getParticularPosting(string $jobid):array
     {
         $conn = DBConnection::getConn();
-        $sql="select a.email, j.* from ".DBConstants::$ALUMNI_TABLE." a, ".DBConstants::$JOB_POSTING_TABLE." j 
+        $sql="select a.username,a.email, j.* from ".DBConstants::$ALUMNI_TABLE." a, ".DBConstants::$JOB_POSTING_TABLE." j 
         where job_id='$jobid' and a.alumni_id = j.alumni_id";
         $result=$conn->query($sql);
     

@@ -149,6 +149,11 @@ a[data-toggle="collapse"] {
 	height: 300px;
 	width: 300px;
 }
+/*  */
+#jobpostingcontent tr:not(:first-child):hover{
+   background: rgba(156, 154, 154, 0.4);
+   cursor: pointer;
+}
 
 @media(max-width:768px){
 	#sidebar{margin-left: -250px;}
