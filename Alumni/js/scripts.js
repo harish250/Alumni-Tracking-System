@@ -1,9 +1,16 @@
 var CONTROLLER_LINK = "controller.php";
 
-function setup(param, logged_in = false) {
+function setup(param, logged_in = false, tried = false) {
   switch (param) {
     case "load":
       url = CONTROLLER_LINK + "?action=achievements";
+      if(tried)
+      {
+        console.log("tried before");
+        //will have to get the modal set invalid password and show
+        $("#myloginmodal small").text("Invalid username/password");
+        document.getElementById("loginButton").click();
+      }
       $.get(url, loadAchievements);
       if (logged_in) {
         var username = $("#session").val();

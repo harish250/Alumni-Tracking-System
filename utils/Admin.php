@@ -3,6 +3,23 @@ require_once('DBConnection.php');
 
     class Admin
     {
+        function validate($username, $pass):array
+        {
+            $conn = DBConnection::getConn();
+            
+            $sql = "select username, admin_id 'id' from ".DBConstants::$ADMIN_TABLE." where (username = '$username' or 
+            admin_id = $username) and password = '$pass'";
+
+            $result = $conn->query($sql);
+            $conn->close();
+            
+            if($result->num_rows)
+                return $result->fetch_assoc();
+            
+            return [];
+            
+        }
+
         function searchAlumni(string $val):array
         {
             $conn = DBConnection::getConn();

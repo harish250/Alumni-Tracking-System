@@ -1,8 +1,12 @@
 <?php
 session_start();
-   
+
 if(!isset($_SESSION['id']))
-  header("location:index.php");
+{
+    //he tried entering pass $_SESSION['tried'] = true ...that means invalid username or password
+    //or he just visited then isset($_SESSION['tried']) == false ,so do nothing
+    header("location:index.php");
+}
    
 ?>
 <!DOCTYPE html>
@@ -84,7 +88,7 @@ if(!isset($_SESSION['id']))
                 Welcome <?php  echo $_SESSION['username'] ?>
             </span>
 
-            <a href="signout.php" class="btn btn-lg btn-outline-dark mr-2 text-decoration-none" id="signoutButton">Sign
+            <a href="../signout.php" class="btn btn-lg btn-outline-dark mr-2 text-decoration-none" id="signoutButton">Sign
                 Out</a>
 
             <a data-toggle="modal" data-target="#editProfile">

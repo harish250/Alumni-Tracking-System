@@ -47,17 +47,24 @@ switch($action)
         // index.php
     case 'login':
         $username = $_REQUEST['username'];
-        $pass = $_REQUEST['pass'];
-        
+        $pass = $_REQUEST['password'];
+        $_SESSION['tried'] = true;
         $arr = (new Alumni())->validate($username, $pass);
-        
+        $location = "index.php";
         if(count($arr) > 0)
         {
             $_SESSION['username'] = $arr['username'];
             $_SESSION['id'] = $arr['id'];
-            echo $arr['username'];
         }
-        echo false;
+        else
+        {
+            $arr = (new Admin())->validate($username, $pass);
+            $_SESSION['username'] = $arr['username'];
+            $_SESSION['id'] = $arr['id'];
+            $location = "../Admin/alumni.php";
+        }
+        
+        header("Location: $location");
         break;
 
     case 'achievements':

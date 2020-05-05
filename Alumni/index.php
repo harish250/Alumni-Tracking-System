@@ -1,8 +1,10 @@
 <?php
-  session_start();
+session_start();
+$tried = (isset($_SESSION['tried']) & !isset($_SESSION['id']))?1:0;
+var_dump($_SESSION);
   
-  $logged_in = isset($_SESSION['id'])?true:false;
-  $username =  ($logged_in)?$_SESSION['username']:'';
+$logged_in = (isset($_SESSION['id']))?1:0;
+$username =  ($logged_in)?$_SESSION['username']:'';
 ?>
 
 <!DOCTYPE html>
@@ -17,16 +19,16 @@
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css"
         integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous" />
-    
+
     <link
         href="https://fonts.googleapis.com/css?family=IBM+Plex+Sans:700i|Montserrat|Roboto|Raleway|Poppins:wght@600&display=swap"
         rel="stylesheet">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css"
         integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
-        <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/style.css">
 </head>
 
-<body onload=<?php echo "setup('load',$logged_in)"?>>
+<body onload=<?php echo "setup('load',$logged_in,$tried)"?>>
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
         integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous">
     </script>
@@ -81,20 +83,21 @@
                     <a class="nav-link" href="#contact-us">Contact</a>
                 </li>
             </ul>
-           
+
             <div class="btn-group">
                 <button class="btn btn-lg btn-outline-dark mr-4" type="button" data-toggle="modal"
                     data-target="#myloginmodal" id="loginButton">Login</button>
                 <button class="btn btn-lg btn-outline-dark mr-4" data-toggle="modal" data-target="#mysignupmodal"
                     type="button" id="signUp">Sign Up</button>
-             
+
             </div>
 
             <span class="navbar-text mr-2" id="loggedInAs">
 
             </span>
 
-            <a href="signout.php" class="btn btn-lg btn-outline-dark mr-2 text-decoration-none d-none" id="signoutButton">Sign Out</a>
+            <a href="../signout.php" class="btn btn-lg btn-outline-dark mr-2 text-decoration-none d-none"
+                id="signoutButton">Sign Out</a>
 
             <a data-toggle="modal" data-target="#editProfile">
                 <span class="fas fa-user-circle fa-3x"></span>
@@ -104,16 +107,16 @@
         </div>
     </nav>
 
-    <!-- Modal for alerting to login  ...no use -->
+    <!-- Modal for alerting to login  5...no use -->
     <div class="modal" id="alertLoginModal">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title w-100 text-center">Please Login</h5>
+                    <h5 class="modal-title w-100 text-center">Acknowledgment</h5>
                     <button class="close" data-dismiss="modal">&times;</button>
                 </div>
                 <div class="modal-body">
-                    <h1 class="display-5 text-center">Please Login</h1>
+                    <h5 class="display-5 text-center text-danger">Invalid username/password</h5>
                 </div>
             </div>
         </div>
@@ -127,10 +130,11 @@
                     <button class="close" data-dismiss="modal">&times;</button>
                 </div>
                 <div class="modal-body">
-                    <form>
+                
+                    <form action="controller.php?action=login" method="post">
                         <div class="form-group">
                             <label for="username">Username</label>
-                            <input type="text" class="form-control" name="username" placeholder="Enter your Email Id"
+                            <input type="text" class="form-control" name="username" placeholder="Email Id/Roll No"
                                 id="login_username" required>
 
                         </div>
@@ -138,11 +142,12 @@
                             <label for="password">Password</label>
                             <input type="password" class="form-control" name="password" placeholder="Password"
                                 id="login_password" required>
+                            
                             <small id="text-prompt" class="form-text text-danger"></small>
                         </div>
                         <div class="form-group text-center">
-                            <input type="button" value="Login" class="btn btn-lg btn-secondary" id="submitButton"
-                                onclick="setup('login')">
+                            <input type="submit" value="Login" class="btn btn-lg btn-secondary" id="submitButton">
+                                <!-- onclick="setup('login')"> -->
                             <!-- onclick = setup('login') -->
                         </div>
                     </form>

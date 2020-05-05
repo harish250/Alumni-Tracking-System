@@ -1,3 +1,11 @@
+<?php
+session_start();
+   
+if(!isset($_SESSION['id']))
+  header("location: ../Alumni/index.php");
+   
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -75,7 +83,7 @@
                         </li>
 
                     </ul>
-                    <a href="signout.php" class="btn btn-outline-secondary text-decoration-none" id="signoutButton">Sign
+                    <a href="../signout.php" class="btn btn-outline-secondary text-decoration-none" id="signoutButton">Sign
                         Out</a>
                 </div>
             </nav>
