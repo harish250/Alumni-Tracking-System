@@ -154,6 +154,19 @@ a[data-toggle="collapse"] {
    background: rgba(156, 154, 154, 0.4);
    cursor: pointer;
 }
+/* index.php */
+
+#stats .card
+{
+	width: 70%;
+	height: 120%;
+	border-radius: 25px;
+
+}
+#stats .card span
+{
+	font-size: 40px;
+}
 
 @media(max-width:768px){
 	#sidebar{margin-left: -250px;}

@@ -228,6 +228,27 @@ require_once('DBConnection.php');
             
             return [];
         }
+
+        function getStats():array
+        {
+            $conn = DBConnection::getConn();
+
+            $sql="select ac.n_ach, al.n_alumni, jp.n_posting, e.n_event from (select count(*) 'n_ach' from ".DBConstants::$CAREER_TABLE.") ac,
+             (select count(*) 'n_alumni' from ".DBConstants::$ALUMNI_TABLE.") al, 
+             (select count(*) 'n_posting' from ".DBConstants::$JOB_POSTING_TABLE.") jp, 
+             (select count(*) 'n_event' from ".DBConstants::$EVENT_TABLE.") e";
+
+             $result=$conn->query($sql);
+             $conn->close();
+             if($result->num_rows)
+             {
+
+                 return $result->fetch_assoc();
+
+             }
+             return [];
+
+        }
     }
 
     /*

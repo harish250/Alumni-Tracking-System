@@ -1,8 +1,6 @@
 <?php
 session_start();
-$tried = (isset($_SESSION['tried']) & !isset($_SESSION['id']))?1:0;
-var_dump($_SESSION);
-  
+
 $logged_in = (isset($_SESSION['id']))?1:0;
 $username =  ($logged_in)?$_SESSION['username']:'';
 ?>
@@ -28,7 +26,7 @@ $username =  ($logged_in)?$_SESSION['username']:'';
     <link rel="stylesheet" href="css/style.css">
 </head>
 
-<body onload=<?php echo "setup('load',$logged_in,$tried)"?>>
+<body onload=<?php echo "setup('load',$logged_in)"?>>
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
         integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous">
     </script>
@@ -93,7 +91,7 @@ $username =  ($logged_in)?$_SESSION['username']:'';
             </div>
 
             <span class="navbar-text mr-2" id="loggedInAs">
-
+                      
             </span>
 
             <a href="../signout.php" class="btn btn-lg btn-outline-dark mr-2 text-decoration-none d-none"
@@ -131,7 +129,7 @@ $username =  ($logged_in)?$_SESSION['username']:'';
                 </div>
                 <div class="modal-body">
                 
-                    <form action="controller.php?action=login" method="post">
+                    <form>
                         <div class="form-group">
                             <label for="username">Username</label>
                             <input type="text" class="form-control" name="username" placeholder="Email Id/Roll No"
@@ -146,9 +144,8 @@ $username =  ($logged_in)?$_SESSION['username']:'';
                             <small id="text-prompt" class="form-text text-danger"></small>
                         </div>
                         <div class="form-group text-center">
-                            <input type="submit" value="Login" class="btn btn-lg btn-secondary" id="submitButton">
-                                <!-- onclick="setup('login')"> -->
-                            <!-- onclick = setup('login') -->
+                            <input type="button" value="Login" class="btn btn-lg btn-secondary" id="submitButton"
+                                onclick="setup('login')">
                         </div>
                     </form>
 
@@ -522,6 +519,7 @@ $username =  ($logged_in)?$_SESSION['username']:'';
             </a>
         </div>
         <input type="hidden" id="session" value="<?php echo $username?>" class="d-none">
+        <button type="button" hidden id="adminpagebtn" onclick="window.location = '../Admin/index.php'"></button>
 
     </section>
 

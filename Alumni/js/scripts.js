@@ -1,16 +1,10 @@
 var CONTROLLER_LINK = "controller.php";
 
-function setup(param, logged_in = false, tried = false) {
+function setup(param, logged_in = false) {
   switch (param) {
     case "load":
       url = CONTROLLER_LINK + "?action=achievements";
-      if(tried)
-      {
-        console.log("tried before");
-        //will have to get the modal set invalid password and show
-        $("#myloginmodal small").text("Invalid username/password");
-        document.getElementById("loginButton").click();
-      }
+      
       $.get(url, loadAchievements);
       if (logged_in) {
         var username = $("#session").val();
@@ -25,7 +19,7 @@ function setup(param, logged_in = false, tried = false) {
         {
           action: "login",
           username: username,
-          pass: pass,
+          password: pass,
         },
         login
       );
@@ -52,20 +46,35 @@ function makeNecessaryChanges(username) {
   $("#signoutButton").removeClass("d-none");
 }
 
-function login(data, status) {
-  if (status == "success") {
-    if (data) {
+function login(data, status) 
+{
+  if (status == "success") 
+  {
+    var idx = data.lastIndexOf("@");
+    var username = data.slice(0,idx);
+    var usertype = data.slice(idx+1);
+    
+    if (usertype == 'alumni') 
+    {
       $("#myloginmodal small").removeClass("text-danger");
       $("#myloginmodal small").addClass("text-success");
       $("#myloginmodal small").text("successfull");
       
-      makeNecessaryChanges(data);
-    } else {
+      makeNecessaryChanges(username);
+    } 
+    else if(usertype == 'admin')
+    {
+      document.getElementById("adminpagebtn").click();
+    }
+    else
+    {
       $("#myloginmodal small").text("Invalid username/password");
     }
-  } else{ $("#myloginmodal small").text("failed to Connect");
-      
-}
+  }
+  else
+  {
+     $("#myloginmodal small").text("failed to Connect");   
+  }
 }
 
 function loadAchievements(data, status) {
@@ -121,9 +130,7 @@ function createCard(jsonObject) {
   var description = jsonObject.desc;
   var photo_url = jsonObject.url;
 
-  console.log(alumniName);
-  console.log(description);
-  console.log(photo_url);
+  
   var card = $("<div></div>").addClass("card text-center m-3");
 
   var image = $("<img/>")

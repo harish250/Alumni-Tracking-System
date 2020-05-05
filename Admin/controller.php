@@ -74,6 +74,11 @@ switch($action)
         $job_id = $_REQUEST['job_id'];
         echo json_encode((new Alumni())->getParticularPosting($job_id));
         break;
+
+        // index.php loading stats
+    case 'getstats':
+        echo json_encode((new Admin())->getStats());
+        break;
 }
 
 function timeConv_12_to_24(string $time,string $ampm)
