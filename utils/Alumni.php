@@ -157,5 +157,32 @@ class Alumni
         
         return [];
     }
+
+    function createAccount(array $info):bool
+    {
+        $conn = DBConnection::getConn();
+
+        $username = $info['fullname'];
+        $email = $info["email"];
+        $password=$info['password'];
+        $company=$info["company"];
+        $designation = $info["designation"];
+        $address = $info["address"];
+        $rollno=$info["rollno"];
+        $branch=$info['branch'];
+        $phno=$info["phno"];
+        $yearofgrad=$info["yearofgraduation"];
+
+        $sql = "insert into ".DBConstants::$ALUMNI_TABLE."(alumni_id,username,email,password,company,designation,address,branch,phno,yearofgraduation)  values('$rollno','$username','$email','$password','$company','$designation','$address','$branch','$phno','$yearofgrad')";
+          
+        $result = $conn->query($sql);
+        var_dump($result);
+        $conn->close();
+        if($result)
+        {
+            return true;
+        }
+       return false;
+    }
 }
 ?>

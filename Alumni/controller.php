@@ -76,6 +76,9 @@ switch($action)
     case 'loadevents':
         echo json_encode((new Admin())->getEvents());
         break;
+    case 'signup':
+        echo json_encode((new Alumni())->createAccount($_REQUEST));
+        break;  
 }
 
 

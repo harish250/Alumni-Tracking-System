@@ -158,63 +158,57 @@ $username =  ($logged_in)?$_SESSION['username']:'';
 
     <!-- modal for signup -->
     <div class="modal" id="mysignupmodal">
-        <div class="modal-dialog">
+        <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title w-100 text-center ">Signup</h5>
                     <button class="close" data-dismiss="modal">&times;</button>
                 </div>
                 <div class="modal-body">
-                    <form>
-                        <div class="form-group">
-                            <label for="fullname">Name</label>
-                            <input type="text" class="form-control" name="fullname" id="fullname"
+                    <form id="submitform">
+                        <div class="form-group row p-3">
+                            <label for="fullname" class="col-md-4">Name</label>
+                            <input type="text" class="form-control col-md-8 mb-3" name="fullname" id="fullname"
                                 placeholder="Full Name">
 
-                            <label for="email">Email</label>
-                            <input type="email" class="form-control" name="email" placeholder="Enter your Email Id"
+                            <label for="email" class="col-md-4">Email</label>
+                            <input type="email" class="form-control col-md-8 mb-3" name="email" placeholder="Enter your Email Id"
                                 id="signup_email">
-                            <label for="password">Password</label>
-                            <input type="password" class="form-control" name="password" placeholder="Password"
+
+                            <label for="password" class="col-md-4">Password</label>
+                            <input type="password" class="form-control col-md-8 mb-3" name="password" placeholder="Password"
                                 id="signup_password">
 
-                            <label for="password">Re-Password</label>
-                            <input type="password" class="form-control" name="repassword"
+                            <label for="password" class="col-md-4">Re-Password</label>
+                            <input type="password" class="form-control col-md-8 mb-3" name="repassword"
                                 placeholder="Re Enter Password" id="repassword">
 
-                            <label for="company">Company</label>
-                            <input type="text" class="form-control" name="company" id="company" placeholder="Company">
-
-                            <label for="address">
+                            <label for="company" class="col-md-4">Company</label>
+                            <input type="text" class="form-control col-md-8 mb-3" name="company" id="company" placeholder="Company">
+                            
+                            <label for="designation" class="col-md-4">Designation</label>
+                            <input type="text" id="designation" name="designation"placeholder="Designation" class="form-control col-md-8 mb-3">
+                            <label for="address" class="col-md-4">
                                 Address
                             </label>
-                            <input type="text" class="form-control" name="address" id="address"
+                            <input type="text" class="form-control col-md-8 mb-3" name="address" id="address"
                                 placeholder=" Residential Address">
 
-                            <label for="rollno">Roll No</label>
-                            <input type="text" class="form-control" name="rollno" id="rollno"
+                            <label for="rollno" class="col-md-4">Roll No</label>
+                            <input type="text" class="form-control col-md-8 mb-3" name="rollno" id="rollno"
                                 placeholder="Enter Your College ID">
-
-                            <label for="branch">Branch</label>
-                            <div class="dropdown mb-2">
-                                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton"
-                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    Branch
-                                    <span class="caret"></span>
-                                </button>
-                                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                    <a class="dropdown-item" href="#" name="cse" id="cse" data-value="CSE">CSE</a>
-                                    <a class="dropdown-item" href="#" name="eie" id="eie" data-value="EIE">EIE</a>
-                                    <a class="dropdown-item" href="#" name="it" id="it" data-value="IT">IT</a>
-                                    <a class="dropdown-item" href="#" name="ece" id="ece" data-value="ECE">ECE</a>
-                                </div>
-                            </div>
-
-                            <label for="yearofgraduation">Year Of Graduation</label>
-                            <input type="date" class="form-control mb-4" name="yearofgraduation" id="yearofgraduation"
-                                placeholder="Year Of Graduation">
-                            <div class="form-group text-center">
-                                <input type="submit" value="Submit" class="btn btn-lg btn-secondary">
+                            
+                             <label for="branch" class="col-md-4">Branch</label>
+                             <input type="text" id="branch" name="branch" class="col-md-8 form-control mb-3" placeholder="Branch">
+                             
+                        
+                            <label for="phno" class="col-md-4">Phone Number</label>
+                            <input type="text" name="phno" id="phno" class="form-control col-md-8 mb-3" placeholder="Phone Number">
+                            <label for="yearofgraduation" class="col-md-4">Year Of Graduation</label>
+                            <input type="text" class="form-control mb-4 col-md-8 mb-3" name="yearofgraduation" id="yearofgraduation"
+                                placeholder="Year Of Graduation yyyy-mm-dd">
+                            <div class="form-group mx-auto">
+                                <input type="button" value="Submit" class="btn btn-lg btn-secondary" onclick="setup('signup')">
                             </div>
                         </div>
                     </form>

@@ -24,6 +24,26 @@ function setup(param, logged_in = false) {
         login
       );
       break;
+    case 'signup':
+      var x =document.getElementById("submitform");
+      formdata=new FormData(x);
+      // formdata=formdata.serialize();
+      $.ajax(
+        {
+          
+          type:"POST",
+          url:CONTROLLER_LINK+"?action=signup",
+          data:formdata,
+          processData: false,
+          contentType: false,
+          success:signupAck,
+          error: function(errResponse) {
+            console.log(errResponse);
+        }      
+        }
+      );
+      break;
+
     default:
       console.log("Nothing Done ");
   }
@@ -145,4 +165,16 @@ function createCard(jsonObject) {
   card.append(image, cardBody);
 
   return card;
+}
+function signupAck(data, status)
+{
+   if(data)
+   {
+     document.querySelector('#mysignupmodal .close').click();
+    //  $('#mysignupmodal .close').click();
+    document.querySelector('#loginButton').click();
+   }     
+   else{
+     console.log('Invalid credentials');
+   }
 }

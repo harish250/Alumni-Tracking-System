@@ -8,7 +8,7 @@ require_once('DBConnection.php');
             $conn = DBConnection::getConn();
             
             $sql = "select username, admin_id 'id' from ".DBConstants::$ADMIN_TABLE." where (username = '$username' or 
-            admin_id = $username) and password = '$pass'";
+            admin_id = '$username') and password = '$pass'";
 
             $result = $conn->query($sql);
             $conn->close();
