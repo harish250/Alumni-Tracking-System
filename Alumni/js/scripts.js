@@ -14,34 +14,46 @@ function setup(param, logged_in = false) {
     case "login":
       username = $("#login_username").val();
       pass = $("#login_password").val();
-      $.post(
-        CONTROLLER_LINK,
-        {
-          action: "login",
-          username: username,
-          password: pass,
-        },
-        login
-      );
+      valid=validateLogin(username,pass);
+      if(valid)
+      {
+        $.post(
+          CONTROLLER_LINK,
+          {
+            action: "login",
+            username: username,
+            password: pass,
+          },
+          login
+        );
+      }
+      
+     
       break;
     case 'signup':
-      var x =document.getElementById("submitform");
-      formdata=new FormData(x);
-      // formdata=formdata.serialize();
-      $.ajax(
+      valid=validateSignup();
+        if(valid)
         {
-          
-          type:"POST",
-          url:CONTROLLER_LINK+"?action=signup",
-          data:formdata,
-          processData: false,
-          contentType: false,
-          success:signupAck,
-          error: function(errResponse) {
-            console.log(errResponse);
-        }      
+           
+          var x = document.getElementById("submitform");
+          formdata=new FormData(x);
+          // formdata=formdata.serialize();
+          $.ajax(
+            {
+              
+              type:"POST",
+              url:CONTROLLER_LINK+"?action=signup",
+              data:formdata,
+              processData: false,
+              contentType: false,
+              success:signupAck,
+              error: function(errResponse) {
+                console.log(errResponse);
+            }      
+            }
+          );
         }
-      );
+      
       break;
 
     default:
@@ -68,13 +80,13 @@ function makeNecessaryChanges(username) {
 
 function login(data, status) 
 {
-  if (status == "success") 
+  if (data != "0") 
   {
     var idx = data.lastIndexOf("@");
     var username = data.slice(0,idx);
     var usertype = data.slice(idx+1);
     
-    if (usertype == 'alumni') 
+    if (usertype === 'alumni') 
     {
       $("#myloginmodal small").removeClass("text-danger");
       $("#myloginmodal small").addClass("text-success");
@@ -82,19 +94,20 @@ function login(data, status)
       
       makeNecessaryChanges(username);
     } 
-    else if(usertype == 'admin')
+    else if(usertype === 'admin')
     {
       document.getElementById("adminpagebtn").click();
     }
-    else
-    {
-      $("#myloginmodal small").text("Invalid username/password");
-    }
+  
   }
   else
-  {
-     $("#myloginmodal small").text("failed to Connect");   
+  {       
+    $("#myloginmodal small").text("Invalid username/password");
   }
+  // else
+  // {
+  //    $("#myloginmodal small").text("failed to Connect");   
+  // }
 }
 
 function loadAchievements(data, status) {
@@ -170,11 +183,119 @@ function signupAck(data, status)
 {
    if(data)
    {
+     $("#signUp").attr("class","d-none");     
      document.querySelector('#mysignupmodal .close').click();
     //  $('#mysignupmodal .close').click();
     document.querySelector('#loginButton').click();
+     
+
    }     
    else{
      console.log('Invalid credentials');
    }
 }
+
+function validateLogin(username,password)
+{
+  if(username.length==0 || password.length==0)
+  {
+
+    $("#myloginmodal small").text("username and password required").addClass("text-danger");
+    $("#login_username").attr("class","form-control is-invalid")
+    $("#login_password").attr("class","form-control is-invalid")
+    // $("#login_password").addClass("is-invalid");  
+    return false;
+  }
+
+  return true;
+  
+}
+
+function validateSignup()
+{
+  password = $("#password").val();
+  re=$("#repassword").val();
+  arr=document.getElementById("submitform").elements;
+  for(var i =0;i<arr.length;i++)
+  {
+     console.log(arr.item(i).name);
+    if(arr.item(i).name.length!=0)
+    temp="#"+arr.item(i).name;
+
+    if(arr.item(i).value.length==0)
+    {
+        $(temp).removeClass("is-valid");  
+        $(temp).attr("class","form-control  mb-3 is-invalid");
+        $(temp+"-"+"invalid").removeClass("d-none");
+        $(temp+"-"+"invalid").attr("class","invalid-feedback")
+           
+          $("#text-prompt-signup").text("Please Enter all the details");
+          return false;
+    }
+    else if(arr.item(i).name=="password" ||arr.item(i).name=="repassword" )
+    {
+       console.log("in password");
+      pass=$("#password").val();
+      re=$("#repassword").val();
+            if(pass!=re)
+            {
+              $("#password").removeClass("is-valid");  
+              $("#password").attr("class","form-control is-invalid mb-3");
+              $("#password"+"-"+"invalid").removeClass("d-none");
+              $("#password"+"-"+"invalid").attr("class"," text-danger invalid-feedback").text("passwords must match ").append("<i class='far fa-times-circle'>");
+              $("#repassword").removeClass("is-valid");  
+              $("#repassword").attr("class","form-control is-invalid mb-3");
+              $("#repassword"+"-"+"invalid").removeClass("d-none");
+              $("#repassword"+"-"+"invalid").attr("class","text-danger invalid-feedback")
+              return false;
+            }
+            else
+            {
+              $("#password").removeClass("is-invalid");  
+              $("#password").attr("class","form-control is-valid mb-3");
+              $("#password"+"-"+"valid").removeClass("d-none");
+              $("#password"+"-"+"valid").attr("class","text-success valid-feedback");
+              $("#repassword").removeClass("is-invalid");  
+              $("#repassword").attr("class","form-control is-valid mb-3");
+              $("#repassword"+"-"+"valid").removeClass("d-none");
+              $("#repassword"+"-"+"valid").attr("class","text-success valid-feedback")
+              $("#text-prompt-signup").text("");
+            }
+    }
+    else if(arr.item(i).name=="email")
+    {
+     var re= /\S+@\S+\.\S+/;
+     if(!re.test($("#email").val()))
+     {
+      $("#email").removeClass("is-valid");  
+      $("#email").attr("class","form-control is-invalid mb-3");
+      $("#email"+"-"+"invalid").removeClass("d-none");
+      $("#email"+"-"+"invalid").attr("class","text-danger invalid-feedback").text("email must be appropiate ").append("<i class='far fa-times-circle'>");
+      return false;
+     }
+     else
+     {
+       $("#email").removeClass("is-invalid");
+       $("#email").attr("class","form-control is-valid mb-3");
+       $("#email"+"-"+"valid").removeClass("d-none");
+       $("#email"+"-"+"valid").attr("class","text-success valid-feedback");
+       $("#text-prompt-signup").text("");
+     }
+
+    }
+    else
+    {
+      $(temp).removeClass("is-invalid");
+      $(temp).attr("class","form-control is-valid mb-3");
+      $(temp+"-"+"valid").removeClass("d-none");
+      $(temp+"-"+"valid").attr("class","text-success valid-feedback")
+      $("#text-prompt-signup").text("");
+    }
+   
+  }
+  
+ 
+
+  return true;
+}
+

@@ -176,7 +176,7 @@ class Alumni
         $sql = "insert into ".DBConstants::$ALUMNI_TABLE."(alumni_id,username,email,password,company,designation,address,branch,phno,yearofgraduation)  values('$rollno','$username','$email','$password','$company','$designation','$address','$branch','$phno','$yearofgrad')";
           
         $result = $conn->query($sql);
-        var_dump($result);
+        // var_dump($result);
         $conn->close();
         if($result)
         {

@@ -38,8 +38,7 @@ header("location: ../Alumni/index.php");
 
             <ul class="list-unstyled components">
                 <li>
-                    <a href="#homeSubmenu">Home</a>
-
+                    <a href="index.php">Home</a>
                 </li>
 
                 <li>

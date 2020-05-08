@@ -59,9 +59,12 @@ switch($action)
         else
         {
             $arr = (new Admin())->validate($username, $pass);
-            $_SESSION['username'] = $arr['username'];
-            $_SESSION['id'] = $arr['id'];
-            $ret_value = $arr['username']."@admin";
+            if(count($arr) > 0)
+            {
+                $_SESSION['username'] = $arr['username'];
+                $_SESSION['id'] = $arr['id'];
+                $ret_value = $arr['username']."@admin";
+            }
         }
         
         echo $ret_value;
@@ -77,7 +80,7 @@ switch($action)
         echo json_encode((new Admin())->getEvents());
         break;
     case 'signup':
-        echo json_encode((new Alumni())->createAccount($_REQUEST));
+        echo (new Alumni())->createAccount($_REQUEST);
         break;  
 }
 

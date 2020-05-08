@@ -133,14 +133,25 @@ $username =  ($logged_in)?$_SESSION['username']:'';
                         <div class="form-group">
                             <label for="username">Username</label>
                             <input type="text" class="form-control" name="username" placeholder="Email Id/Roll No"
-                                id="login_username" required>
-
+                                id="login_username"/>
+                                <span class="valid-feedback text-success">
+                                 <i class="far fa-check-circle" aria-hidden="true"></i> 
+                                </span>
+                                <span class="invalid-feedback text-danger">
+                                 <i class="far fa-times-circle" aria-hidden="true"></i>
+                                </span>
                         </div>
                         <div class="form-group">
                             <label for="password">Password</label>
                             <input type="password" class="form-control" name="password" placeholder="Password"
-                                id="login_password" required>
+                                id="login_password" />
                             
+                                <span class="valid-feedback text-success">
+                                 <i class="far fa-check-circle" aria-hidden="true"></i> 
+                                </span>
+                                <span class="invalid-feedback text-danger">
+                                 <i class="far fa-times-circle" aria-hidden="true"></i>
+                                </span>
                             <small id="text-prompt" class="form-text text-danger"></small>
                         </div>
                         <div class="form-group text-center">
@@ -167,51 +178,111 @@ $username =  ($logged_in)?$_SESSION['username']:'';
                 <div class="modal-body">
                     <form id="submitform">
                         <div class="form-group row p-3">
-                            <label for="fullname" class="col-md-4">Name</label>
-                            <input type="text" class="form-control col-md-8 mb-3" name="fullname" id="fullname"
-                                placeholder="Full Name">
-
-                            <label for="email" class="col-md-4">Email</label>
-                            <input type="email" class="form-control col-md-8 mb-3" name="email" placeholder="Enter your Email Id"
-                                id="signup_email">
-
-                            <label for="password" class="col-md-4">Password</label>
-                            <input type="password" class="form-control col-md-8 mb-3" name="password" placeholder="Password"
-                                id="signup_password">
-
-                            <label for="password" class="col-md-4">Re-Password</label>
-                            <input type="password" class="form-control col-md-8 mb-3" name="repassword"
-                                placeholder="Re Enter Password" id="repassword">
-
-                            <label for="company" class="col-md-4">Company</label>
-                            <input type="text" class="form-control col-md-8 mb-3" name="company" id="company" placeholder="Company">
-                            
-                            <label for="designation" class="col-md-4">Designation</label>
-                            <input type="text" id="designation" name="designation"placeholder="Designation" class="form-control col-md-8 mb-3">
-                            <label for="address" class="col-md-4">
+                            <label for="fullname" >Name</label>
+                            <input type="text" class="form-control  mb-3" name="fullname" id="fullname"
+                                placeholder="Full Name" required>
+                                <span class="text-success d-none" id="fullname-valid">
+                                <i class="far fa-check-circle"></i>
+                                </span>
+                                <span class="text-danger d-none" id="fullname-invalid">
+                                <i class="far fa-times-circle"></i>
+                                </span>
+                            <label for="email" >Email</label>
+                            <input type="email" class="form-control mb-3" name="email" placeholder="Enter your Email Id"
+                                id="email" required/>
+                                <span class="text-success d-none" id="email-valid">
+                                <i class="far fa-check-circle"></i>
+                                </span>
+                                <span class="text-danger d-none" id="email-invalid">
+                                <i class="far fa-times-circle"></i>
+                                </span>
+                            <label for="password" >Password</label>
+                            <input type="password" class="form-control  mb-3" name="password" placeholder="Password"
+                                id="password" required>
+                                <span class="text-success d-none"id="password-valid">
+                                <i class="far fa-check-circle"></i>
+                                </span>
+                                <span class="text-danger d-none" id="password-invalid">
+                                <i class="far fa-times-circle"></i>
+                                </span>
+                            <label for="repassword" >Re-Password</label>
+                            <input type="password" class="form-control mb-3" name="repassword"
+                                placeholder="Re Enter Password" id="repassword" required/>
+                                <span class="text-success d-none" id="repassword-valid">
+                                <i class="far fa-check-circle"></i>
+                                </span>
+                                <span class="text-danger d-none" id="repassword-invalid">
+                                <i class="far fa-times-circle"></i>
+                                </span>
+                            <label for="company"  >Company</label>
+                            <input type="text" class="form-control  mb-3" name="company" id="company" placeholder="Company" required>
+                            <span class="text-success d-none" id="company-valid">
+                                <i class="far fa-check-circle"></i>
+                                </span>
+                                <span class="text-danger d-none" id="company-invalid">
+                                <i class="far fa-times-circle"></i>
+                                </span>
+                            <label for="designation">Designation</label>
+                            <input type="text" id="designation" name="designation"placeholder="Designation" class="form-control  mb-3" required>
+                            <span class="text-success d-none" id="designation-valid">
+                                <i class="far fa-check-circle"></i>
+                                </span>
+                                <span class="text-danger d-none" class="designation-invalid">
+                                <i class="far fa-times-circle"></i>
+                                </span>
+                            <label for="address">
                                 Address
                             </label>
-                            <input type="text" class="form-control col-md-8 mb-3" name="address" id="address"
-                                placeholder=" Residential Address">
-
-                            <label for="rollno" class="col-md-4">Roll No</label>
-                            <input type="text" class="form-control col-md-8 mb-3" name="rollno" id="rollno"
-                                placeholder="Enter Your College ID">
-                            
-                             <label for="branch" class="col-md-4">Branch</label>
-                             <input type="text" id="branch" name="branch" class="col-md-8 form-control mb-3" placeholder="Branch">
-                             
+                            <input type="text" class="form-control mb-3" name="address" id="address"
+                                placeholder=" Residential Address" required>
+                                <span class="text-success d-none" id="address-valid">
+                                <i class="far fa-check-circle"></i>
+                                </span>
+                                <span class="text-danger d-none" id="address-invalid">
+                                <i class="far fa-times-circle"></i>
+                                </span>
+                            <label for="rollno" >Roll No</label>
+                            <input type="text" class="form-control  mb-3" name="rollno" id="rollno"
+                                placeholder="Enter Your College ID" required>
+                                <span class="text-success d-none" id="rollno-valid">
+                                <i class="far fa-check-circle"></i>
+                                </span>
+                                <span class="text-danger d-none" id="rollno-invalid">
+                                <i class="far fa-times-circle"></i>
+                                </span>
+                             <label for="branch" >Branch</label>
+                             <input type="text" id="branch" name="branch" class="form-control mb-3" placeholder="Branch" required>
+                             <span class="text-success d-none" id="branch-valid">
+                                <i class="far fa-check-circle"></i>
+                                </span>
+                                <span class="text-danger d-none" id="branch-invalid">
+                                <i class="far fa-times-circle"></i>
+                                </span>
                         
-                            <label for="phno" class="col-md-4">Phone Number</label>
-                            <input type="text" name="phno" id="phno" class="form-control col-md-8 mb-3" placeholder="Phone Number">
-                            <label for="yearofgraduation" class="col-md-4">Year Of Graduation</label>
-                            <input type="text" class="form-control mb-4 col-md-8 mb-3" name="yearofgraduation" id="yearofgraduation"
-                                placeholder="Year Of Graduation yyyy-mm-dd">
+                            <label for="phno" >Phone Number</label>
+                            <input type="text" name="phno" id="phno" class="form-control mb-3" placeholder="Phone Number" required>
+                            <span class="text-success d-none" id="phno-valid">
+                                <i class="far fa-check-circle"></i>
+                                </span>
+                                <span class="text-danger d-none" id="phno-invalid">
+                                <i class="far fa-times-circle"></i>
+                                </span>
+                            <label for="yearofgraduation" >Year Of Graduation</label>
+                            <input type="text" class="form-control mb-4 mb-3" name="yearofgraduation" id="yearofgraduation"
+                                placeholder="Year Of Graduation yyyy-mm-dd" required>
+                                <span class="text-success d-none" id="yearofgraduation-valid">
+                                <i class="far fa-check-circle"></i>
+                                </span>
+                                <span class="text-danger d-none" id="yearofgraduation-invalid">
+                                <i class="far fa-times-circle"></i>
+                                </span>
                             <div class="form-group mx-auto">
                                 <input type="button" value="Submit" class="btn btn-lg btn-secondary" onclick="setup('signup')">
                             </div>
+                           
                         </div>
                     </form>
+                    <h4 id="text-prompt-signup" class=" text-center text-danger"></h4>
                 </div>
 
             </div>
