@@ -8,6 +8,7 @@ $action = $_REQUEST['action'];
 
 switch($action)
 {
+    // alumni.php
     case 'search':
         $val = $_REQUEST['val'];
         echo json_encode((new Admin())->searchAlumni($val));
@@ -22,6 +23,8 @@ switch($action)
         $id = $_REQUEST['id'];   
         echo json_encode((new Admin())->getContactInfo($id));
         break;
+
+    // event.php
     case 'uploadevent':
         $title = $_REQUEST['title'];
 
@@ -46,6 +49,7 @@ switch($action)
         echo json_encode((new Admin())->deleteEvent($event_id));
         break;
         
+    // achievements.php
     case "postachievement":
         $email = $_REQUEST['email'];
         $desc = $_REQUEST['description'];
@@ -65,17 +69,28 @@ switch($action)
         $url = $_REQUEST['url'];
         echo (new Admin())->deleteAchievement($url);
         break;
+    
+    // posting.php
     case 'getpostings':
         $val = $_REQUEST['val'];
         echo json_encode((new Admin())->getJobPostings($val));
         break;
-    
+
+    case 'post':
+        $company = $_REQUEST['company'];
+        $sal = $_REQUEST['salary'];
+        $type = $_REQUEST['type'];
+        $desc = $_REQUEST['description'];
+        $id = $_SESSION['id'];
+        echo (new Alumni())->post($id,$company, $sal, $type, $desc);
+        break;
+
     case 'showdescription':
         $job_id = $_REQUEST['job_id'];
         echo json_encode((new Alumni())->getParticularPosting($job_id));
         break;
 
-        // index.php loading stats
+    // index.php loading stats
     case 'getstats':
         echo json_encode((new Admin())->getStats());
         break;

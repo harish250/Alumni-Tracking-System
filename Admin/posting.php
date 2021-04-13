@@ -140,9 +140,78 @@ if(!isset($_SESSION['id']))
                 </div>
             </div>
 
+            <!--Section for posting job -->
+            <section id="job-posting-form" class="">
+                <div class="container">
+                    <h5 class="text-center pt-3">Add a Job Posting</h5>
+                    <div class="row">
+                        <div class="col p-3">
+                            <form>
+                                <div class="form-group row">
+                                    <div class="col-sm-2">
+                                        <label for="post_company" class="col-form-label">Company:</label>
+                                    </div>
+                                    <div class="col-sm-10">
+                                        <input type="text" name="company" id="post_company" class="form-control"
+                                    placeholder="Company">
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <div class="col-sm-2">
+                                        <label class="col-form-label">Job Type:</label>
+                                    </div>
+                                    <div class="col-sm-10">
+                                        <div >
+                                    <!-- <button class="btn btn-secondary dropdown-toggle" type="button"
+                                        id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true"
+                                        aria-expanded="false">
+                                        Job Type
+                                        <span class="caret"></span>
+                                    </button> -->
+
+                                            <select id="options">
+                                                <option value="Full Time">Full Time job</a>
+                                                <option value="Part Time">Part time job</a>
+                                                <option value="Work from Home">Work From Home</a>
+                                                <option value="Internship">Internships</a>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="form-group row">
+                                    <div class="col-sm-2">
+                                        <label for="post_salary" class="col-form-label">Salary:</label>
+
+                                    </div>
+                                    <div class="col-sm-10">
+                                        <input type="numeric" name="salary" id="post_salary" class="form-control"
+                                            placeholder="Salary">
+                                    </div>
+
+                                </div>
+                                <div class="form-group row">
+                                    <div class="col-sm-2">
+                                        <label for="post_desc" class="col-form-label">Job Description:</label>
+
+                                    </div>
+                                    <div class="col-sm-10">
+                                        <textarea class="form-control" id="post_desc" rows="3"></textarea>
+                                    </div>
+
+                                </div>
+
+                                <div class="form-group text-center">
+                                    <button type="button" class="btn btn-lg btn-secondary" onclick="setup('post')">Post</button>
+                                    <span class="lead" id="post_ack"></span>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <input type="hidden" id="session_id" value="<?php echo $_SESSION['id']?>" class="d-none">
+            </section>
         </div>
-
-
     </div>
     </div>
 

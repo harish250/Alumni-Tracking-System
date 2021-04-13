@@ -8,7 +8,6 @@ switch($action)
 {
 
     // gallery.php
-
     case 'upload':
         $id = $_SESSION['id'];
         echo json_encode((new Alumni())->uploadFile($id, $_FILES));
@@ -44,12 +43,13 @@ switch($action)
         echo (new Alumni())->delPost($job_id);
         break;            
     
-        // index.php
+    // index.php
     case 'login':
         $username = $_REQUEST['username'];
         $pass = $_REQUEST['password'];
         $ret_value = "0";
         $arr = (new Alumni())->validate($username, $pass);
+        $_SESSION['type'] = 0; // Here 0 means Alumni, 1 means Admin
         if(count($arr) > 0)
         {
             $_SESSION['username'] = $arr['username'];
@@ -64,9 +64,9 @@ switch($action)
                 $_SESSION['username'] = $arr['username'];
                 $_SESSION['id'] = $arr['id'];
                 $ret_value = $arr['username']."@admin";
+                $_SESSION['type'] = 1;
             }
         }
-        
         echo $ret_value;
         break;
 
@@ -82,6 +82,17 @@ switch($action)
     case 'signup':
         echo (new Alumni())->createAccount($_REQUEST);
         break;  
+
+    // chat.php
+    case 'logchat':
+        if(isset($_SESSION['id'])){
+            $text = $_POST['text'];
+            date_default_timezone_set("Asia/Kolkata");
+            //$date=date_create(date(),timezone_open("Asia/Kolkata"));
+            // $text_message = "<div class='msgln'><span class='chat-time'>".date_format($date,"g:i a")."</span> <b class='user-name'>".$_SESSION['username']."</b> ".stripslashes(htmlspecialchars($text))."<br></div>";
+            $text_message = "<div class='msgln'><span class='chat-time'>".date("g:i a")."</span> <b class='user-name'>".$_SESSION['username']."</b> ".stripslashes(htmlspecialchars($text))."<br></div>";
+            file_put_contents("log.html", $text_message, FILE_APPEND | LOCK_EX);
+        }
 }
 
 

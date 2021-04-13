@@ -73,7 +73,7 @@ if(!isset($_SESSION['id']))
                             <a class="dropdown-item" href="gallery.php">Gallery</a>
                             <a class="dropdown-item" href="posting.php">Job Posting</a>
                             <a class="dropdown-item" href="#">Events</a>
-                            <a class="dropdown-item" href="#">Group Chat</a>
+                            <a class="dropdown-item" href="chat.php">Group Chat</a>
 
                         </div>
                     </div>

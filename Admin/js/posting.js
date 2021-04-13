@@ -9,6 +9,21 @@ function setup(param)
             val = val.replace(" ", "_");
             jq.get(CONTROLLER_LINK+`?action=getpostings&val=${val}`,makeTable);
             break;
+        case 'post':
+            company = $('#post_company').val();
+            type = $('#job-posting-form option:selected').val();
+            sal = $('#post_salary').val();
+            desc = $('#post_desc').val();
+
+            jq.post(CONTROLLER_LINK,
+                {
+                    action:"post",
+                    company:company,
+                    type:type,
+                    salary:sal,
+                    description:desc,
+                },
+            postAck)
     }
 }
 
@@ -116,4 +131,21 @@ function makeModal(data,status)
     fmt_date = getFormatedDate(date_posted);
 
     jq('#jobDescriptionModal .modal-footer span').text(fmt_date);
+}
+
+function postAck(data,status)
+{
+    if(data)
+    {
+        console.log("successfully posted");
+        $('#post_ack').attr('class','text-success').text('Successfully Posted');
+        setup('load'); //if the job was posted successfully , load the table again to view the Alumni his post
+    }
+    else
+    {
+        $('#post_ack').attr('class','text-danger').text('Failed to post');
+
+        console.log("failed");
+
+    }
 }

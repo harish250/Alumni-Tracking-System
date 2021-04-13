@@ -4,7 +4,6 @@ function setup(param, logged_in = false) {
   switch (param) {
     case "load":
       url = CONTROLLER_LINK + "?action=achievements";
-      
       $.get(url, loadAchievements);
       if (logged_in) {
         var username = $("#session").val();
@@ -65,7 +64,7 @@ function changeHrefs() {
   $("#gallerylink").attr("href", "gallery.php");
   $("#postinglink").attr("href", "posting.php");
   $("#eventslink").attr("href", "events.php");
-  $("#groupcharlink").attr("href", "#");
+  $("#groupchatlink").attr("href", "chat.php");
   $(".navbar .dropdown-menu").children().removeAttr("data-toggle");
 }
 

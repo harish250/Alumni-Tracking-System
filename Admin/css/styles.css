@@ -43,7 +43,9 @@ a:focus{
 #sidebar {
     min-width: 250px;
 	max-width: 250px;
-	height: 100vh;
+	/*height: 100vh;*/
+	
+	min-height: 100vh;
 	/* position: sticky; */
     background: rgb(186, 187, 189);
     color: #fff;

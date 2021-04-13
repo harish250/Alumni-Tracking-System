@@ -1,8 +1,9 @@
 <?php
 session_start();
 
-$logged_in = (isset($_SESSION['id']))?1:0;
+$logged_in = (isset($_SESSION['id']) & $_SESSION['type'] == 0)?1:0;
 $username =  ($logged_in)?$_SESSION['username']:'';
+$type = $_SESSION['type'];
 ?>
 
 <!DOCTYPE html>
