@@ -8,7 +8,7 @@ class Alumni
         $conn = DBConnection::getConn();
         $sql = "select job_id,company, type, salary from ".DBConstants::$JOB_POSTING_TABLE;
     
-        $condition = ($id == 'all')?'':" where alumni_id = '$id'";
+        $condition = ($id == 'all')?'':" where id = '$id'";
         
         $sql .= $condition;
         $sql .= " order by date_posted desc"; //just to place the recent ones first
@@ -59,21 +59,33 @@ class Alumni
     {
         $conn = DBConnection::getConn();
         $sql="select a.username,a.email, j.* from ".DBConstants::$ALUMNI_TABLE." a, ".DBConstants::$JOB_POSTING_TABLE." j 
-        where job_id='$jobid' and a.alumni_id = j.alumni_id";
+        where job_id='$jobid' and a.alumni_id = j.id";
+        
         $result=$conn->query($sql);
-    
-        $conn->close(); 
+        
+        //If alumni has not posted the job then it must be an admin
+        if($result->num_rows<=0)
+        {
+            $sql="select 'COLLEGE' as 'username',a.email, j.* from ".DBConstants::$ADMIN_TABLE." a, ".DBConstants::$JOB_POSTING_TABLE." j 
+            where job_id='$jobid' and a.admin_id = j.id";
+            
+            $result=$conn->query($sql);
+        }
 
-        if($result->num_rows>0)
-        return $result->fetch_all(MYSQLI_ASSOC);
+        $conn->close(); 
+        
+        if($result->num_rows > 0)
+            return $result->fetch_all(MYSQLI_ASSOC);
+        
+        return [];
     }
 
-    public function post(string $jobid, string $company, string $sal, string $type, string $desc):bool
+    public function post(string $id, string $company, string $sal, string $type, string $desc):bool
     {
         $conn = DBConnection::getConn();
 
-        $sql = "insert into ".DBConstants::$JOB_POSTING_TABLE."(alumni_id, company, salary, type, description) 
-        values('$jobid', '$company', $sal, '$type', '$desc')";
+        $sql = "insert into ".DBConstants::$JOB_POSTING_TABLE."(id, company, salary, type, description) 
+        values('$id', '$company', $sal, '$type', '$desc')";
 
         $result = $conn->query($sql);
         $conn->close();

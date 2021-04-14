@@ -29,13 +29,13 @@ drop table if exists job_posting;
 
 create table job_posting(
           job_id int auto_increment not null,
-          alumni_id varchar(10) not null,
+          id varchar(10) not null,
           company varchar(50) not null,
           type text(20)  not null, -- changed
           salary int not null, -- changed
           description varchar(200) not null,
           date_posted datetime not null default now(), -- changed to date_posted and datatype to datetime
-          constraint fk_job_post_alumni_id foreign key(alumni_id) references alumni(alumni_id),
+          constraint fk_job_post_id_log foreign key(id) references id_log(id) on delete cascade,
           constraint pk_job_id primary key(job_id)
 );
 
@@ -43,7 +43,8 @@ create table job_posting(
 
 drop table if exists gallery;
 
-create table gallery(alumni_id varchar(10) not null,
+create table gallery(
+alumni_id varchar(10) not null,
 image_url varchar(250) not null,
 date_uploaded datetime not null default now(),
 constraint fk_gallery_alumi_id foreign key(alumni_id) references alumni(alumni_id)
@@ -75,10 +76,19 @@ alumni_photo_url varchar(250) not null,
 constraint fk_career_alumni_id foreign key(alumni_id) references alumni(alumni_id)
 );
 
+drop table if exists admin;
+
 create table admin(
-admin_id int not null,
+admin_id varchar(10) not null,
 username varchar(20) not null,
 email varchar(50) not null,
-password varchar(20) not null
+password varchar(20) not null,
+ constraint pk_admin_id primary key(admin_id)
 );
 
+-- logs table where all alumni and admin IDs are dumped and managed using triggers
+
+create table id_log(
+id varchar(10) not null,
+constraint pk_id primary key(id)
+);

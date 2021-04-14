@@ -125,9 +125,9 @@ function makeModal(data,status)
     // $('#jobDescriptionModal .modal-footer a').attr("href",`mailto:${data.email}`);
     modal_footer = $('#jobDescriptionModal .modal-footer');
     modal_footer.find(".btn:first-child").remove();
-    // delete option is to be provided for a job_posting if the id in session matches the alumni_id of the posting
+    // delete option is to be provided for a job_posting if the id in session matches the id of the posting
     id = $('#session_id').val(); //this has the id value of the session stored
-    if(id == data.alumni_id)
+    if(id.toUpperCase() == data.id.toUpperCase())
     {
         del_option = $('<button></button>').attr("class","btn btn-danger")
                                             .text("Delete Post")

@@ -45,14 +45,13 @@ require_once('DBConnection.php');
             a.branch, a.designation from ".DBConstants::$ALUMNI_TABLE." a 
             where a.alumni_id= '$id' ";
 
-            $left_part_gal_post = "select t1.alumni_id 't1' ,t2.alumni_id 't2',t1.n_posting, t2.n_imgs from 
-            (select alumni_id, count(*) 'n_posting' from ".DBConstants::$JOB_POSTING_TABLE." group by alumni_id) t1 LEFT JOIN
-            (select alumni_id, count(*) 'n_imgs' from ".DBConstants::$GALLERY_TABLE." group by alumni_id) t2 on t1.alumni_id = t2.alumni_id
-            ";
+            $left_part_gal_post = "select t1.id 't1' ,t2.alumni_id 't2',t1.n_posting, t2.n_imgs from 
+            (select id, count(*) 'n_posting' from ".DBConstants::$JOB_POSTING_TABLE." group by id) t1 LEFT JOIN
+            (select alumni_id, count(*) 'n_imgs' from ".DBConstants::$GALLERY_TABLE." group by alumni_id) t2 on t1.id = t2.alumni_id";
             
-            $right_part_gal_post = "select t1.alumni_id 't1' ,t2.alumni_id 't2',t1.n_posting, t2.n_imgs from 
-            (select alumni_id, count(*) 'n_posting' from ".DBConstants::$JOB_POSTING_TABLE." group by alumni_id) t1 RIGHT JOIN
-            (select alumni_id, count(*) 'n_imgs' from ".DBConstants::$GALLERY_TABLE." group by alumni_id) t2 on t1.alumni_id = t2.alumni_id";
+            $right_part_gal_post = "select t1.id 't1' ,t2.alumni_id 't2',t1.n_posting, t2.n_imgs from 
+            (select id, count(*) 'n_posting' from ".DBConstants::$JOB_POSTING_TABLE." group by id) t1 RIGHT JOIN
+            (select alumni_id, count(*) 'n_imgs' from ".DBConstants::$GALLERY_TABLE." group by alumni_id) t2 on t1.id = t2.alumni_id";
 
             $gal_post = "($left_part_gal_post UNION $right_part_gal_post) T4";
 
@@ -63,6 +62,7 @@ require_once('DBConnection.php');
             T0.alumni_id = T4.t1 or T0.alumni_id = T4.t2";
 
             $result = $conn->query($sql);
+            
             $conn->close();
             if($result->num_rows)
             {
