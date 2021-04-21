@@ -1,7 +1,7 @@
 <?php
 session_start();
    
-if(!isset($_SESSION['id']))
+if(!isset($_SESSION['id']) || $_SESSION['type'] == 0)
   header("location: ../Alumni/index.php");
    
 ?>

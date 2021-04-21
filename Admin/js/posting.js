@@ -101,7 +101,6 @@ function makeModal(data,status)
         
         var divide = (days, val, append)=>{
             temp = Math.floor(days/val);
-            console.log(temp,append);
             return (temp)?temp+""+append+" ":"";
         }
 
@@ -120,14 +119,24 @@ function makeModal(data,status)
     jq('#jobDescriptionModal .modal-title').text(`${data.company}`);
     jq('#type').text(` ${data.type}`);
     jq('#salary').text(` ${data.salary}`);
-
     jq('#description').text(data.description);
+    
+    del_option = $('<button></button>').attr("class","btn btn-danger")
+    .text("Delete Post")
+    .click(function(){
+        url = CONTROLLER_LINK+`?action=delpost&job_id=${data.job_id}`;
+        jq.get(url, delPostAck);
+    });
+    modal_footer = $('#jobDescriptionModal .modal-footer');
+    modal_footer.find(".btn:first-child").remove();
+    
+    id = $('#session_id').val(); //this has the id value of the session stored
+    modal_footer.prepend(del_option);   
+    var disabled = id.toUpperCase() != data.id.toUpperCase(); // disabled is true if the session id and id of job posting uploader doesnt match
+    $("#jobDescriptionModal .modal-footer .btn:first-child").attr('disabled', disabled);
 
-    // the final one left is to display "Apply Now" Option or "delete post" option
-    // jq('#jobDescriptionModal .modal-footer a').attr("href",`mailto:${data.email}`);
-
-    var date_posted = new Date(data.date_posted);
     // process the date to give it as Months-Weeks-Days
+    var date_posted = new Date(data.date_posted);
     fmt_date = getFormatedDate(date_posted);
 
     jq('#jobDescriptionModal .modal-footer span').text(fmt_date);
@@ -147,5 +156,17 @@ function postAck(data,status)
 
         console.log("failed");
 
+    }
+}
+function delPostAck(data, status)
+{
+    if(data)
+    {
+        setup('load');
+
+    }
+    else
+    {
+        console.log('failed to del post');
     }
 }

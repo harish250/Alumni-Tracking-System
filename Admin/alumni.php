@@ -1,7 +1,7 @@
 <?php
 session_start();
    
-if(!isset($_SESSION['id']))
+if(!isset($_SESSION['id']) || $_SESSION['type'] == 0)
 header("location: ../Alumni/index.php");
    
 ?>
@@ -157,21 +157,24 @@ header("location: ../Alumni/index.php");
             </div>
 
             <div class="container" id="alumnicontent">
-                <div class="row">
-                    <div class="col-md-3 card mb-3 mt-5 p-3">
-                        <div class="card-body">
-                            <h4 class="card-title">Govind Asawa</h4>
-                            <h5 class="card-subtitle"><span class="badge badge-secondary badge-lg">2017 Batch</span>
+                <!-- 
+
+                    <div class="row">
+                        <div class="col-md-3 card mb-3 mt-5 p-3">
+                            <div class="card-body">
+                                <h4 class="card-title">Govind Asawa</h4>
+                                <h5 class="card-subtitle"><span class="badge badge-secondary badge-lg">2017 Batch</span>
                             </h5>
                             <h5 class="card-text">Google</h5>
-
-
+                            
+                            
                             <a name="connect" id="connect" class="btn btn-lg btn-outline-success" href="#"
-                                role="button">Connect</a>
-
-
+                            role="button">Connect</a>
+                            
+                            
                         </div>
                     </div>
+                -->
 
                 </div>
 

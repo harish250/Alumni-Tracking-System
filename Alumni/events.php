@@ -1,7 +1,7 @@
 <?php
 session_start();
 
-if(!isset($_SESSION['id']))
+if(!isset($_SESSION['id']) || $_SESSION['type'] == 1)
 {
     //he tried entering pass $_SESSION['tried'] = true ...that means invalid username or password
     //or he just visited then isset($_SESSION['tried']) == false ,so do nothing

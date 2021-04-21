@@ -1,7 +1,7 @@
 <?php
 session_start();
    
-if(!isset($_SESSION['id']))
+if(!isset($_SESSION['id']) || $_SESSION['type'] == 1)
   header("location:index.php");
    
 ?>
@@ -80,7 +80,7 @@ if(!isset($_SESSION['id']))
                 Welcome <?php  echo $_SESSION['username'] ?>
             </span>
 
-            <a href="signout.php" class="btn btn-lg btn-outline-dark mr-2 text-decoration-none" id="signoutButton">Sign
+            <a href="../signout.php" class="btn btn-lg btn-outline-dark mr-2 text-decoration-none" id="signoutButton">Sign
                 Out</a>
 
             <a data-toggle="modal" data-target="#editProfile">

@@ -76,6 +76,11 @@ switch($action)
         echo json_encode((new Admin())->getJobPostings($val));
         break;
 
+    case 'delpost':
+        $job_id = $_REQUEST['job_id'];
+        echo (new Alumni())->delPost($job_id);
+        break;
+        
     case 'post':
         $company = $_REQUEST['company'];
         $sal = $_REQUEST['salary'];

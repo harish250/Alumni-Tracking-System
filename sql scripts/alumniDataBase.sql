@@ -25,6 +25,15 @@ create table alumni(
    constraint un_email unique(email)
 ) ;
 
+-- logs table where all alumni and admin IDs are dumped and managed using triggers
+drop table if exists id_log;
+
+create table id_log(
+id varchar(10) not null,
+constraint pk_id primary key(id)
+);
+
+
 drop table if exists job_posting;
 
 create table job_posting(
@@ -84,11 +93,4 @@ username varchar(20) not null,
 email varchar(50) not null,
 password varchar(20) not null,
  constraint pk_admin_id primary key(admin_id)
-);
-
--- logs table where all alumni and admin IDs are dumped and managed using triggers
-
-create table id_log(
-id varchar(10) not null,
-constraint pk_id primary key(id)
 );
