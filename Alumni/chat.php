@@ -1,6 +1,6 @@
 <?php
 session_start();
-   
+
 if(!isset($_SESSION['id']) || $_SESSION['type'] == 1)
 {
     //he tried entering pass $_SESSION['tried'] = true ...that means invalid username or password
@@ -17,6 +17,7 @@ if(!isset($_SESSION['id']) || $_SESSION['type'] == 1)
     <meta name="viewport" content="width=device-width, initial-scale=1.0,user-scalable=no">
     <title>Document</title>
 
+
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css"
         integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous" />
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css"
@@ -27,20 +28,61 @@ if(!isset($_SESSION['id']) || $_SESSION['type'] == 1)
         href="https://fonts.googleapis.com/css?family=IBM+Plex+Sans:700i|Montserrat|Roboto|Raleway|Alfa+Slab+One|Oswald&display=swap"
         rel="stylesheet" />
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
-    <link rel="stylesheet" href="css/style.css" />
     <link rel="stylesheet" href="css/chatstyle.css" />
+    <link rel="stylesheet" href="css/style.css" />
 
 </head>
 
 <body onload="setup('load')">
+    <style type="text/css">
+    body
+    {
+        font-family: "Roboto", sans-serif;
+    }
+        .msgln._<?php echo $_SESSION['id']?> b.user-name
+        {
+            background: #435f7a;
+            color: #f5f5f5;
+            padding: 2px 4px;
+            font-size: 90%;
+            border-radius: 4px;
+            margin: 0 5px 0 0;
+            font-weight: bold;
+        }
+        div.msg
+        {
+            display: flex;
+        }
+        div._<?php echo $_SESSION['id']?>
+        {
+            justify-content: flex-end;
+            
+        }
+        div._<?php echo $_SESSION['id']?> div.chat-content
+        {
+            background: #F5F5F5;
+            color: #384664; 
+            border-radius: 25px 0px 25px 25px ;
+            order:1;
+            min-width: 500px;
+            max-width: 600px;
+            padding: 0px 15px 0px 15px;
+        }
+       div._<?php echo $_SESSION['id']?> .profile-photo
+        {
+            margin-left: 15px;
+            order: 2;
+        }
+    
+    </style>
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
-        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous">
+    integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous">
     </script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
         integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous">
     </script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
-        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous">
+    integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous">
     </script>
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
@@ -282,42 +324,17 @@ if(!isset($_SESSION['id']) || $_SESSION['type'] == 1)
 
 
 
+    <div class="container align-center" style="padding-top: 100px;">
+        <h1 class="text-center mt-2">
+            "THE GROUP CHAT"
+        </h1>
+    </div>
     <!-- image  for display -->
-    <section id="image-display" class="img-fluid">
-        <div class="dark-overlay">
-            <div class="row">
-                <div class="col">
-                    <div class="container align-center" style="padding-top: 250px;">
-                        <h1 class="text-center mt-5">
-                            "THE GROUP CHAT"
-                        </h1>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
+   
     <!-- Welcome section -->
-    <section id="welcome-section">
-        <div class="container text-center">
-            <h1 class="p-3">We Welcome you to GROUP CHAT</h1>
-            <p class="mb-4 p-3">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Accusantium, consequuntur
-                nesciunt quos neque quae totam vel dicta fuga necessitatibus dolorum amet expedita quisquam magni modi
-                veniam quis repellendus ab molestiae?</p>
-            <div class="row">
-                <div class="col-md mb-5">
-                    <i class="fas fa-handshake fa-3x mb-2"></i>
-                    <h4>Meet</h4>
-                </div>
-                <div class="col-md mb-5">
-                    <i class="fas fa-music fa-3x mb-2"></i>
-                    <h4>Enjoy</h4>
-                </div>
-            </div>
-        </div>
-    </section>
+   
 
-    <section id="chat-content" class="m-3">
+    <section id="chat-content" class="mt-2 mb-2">
         <div class="container">
             <div class="row">
                 <div id="wrapper">
@@ -333,7 +350,6 @@ if(!isset($_SESSION['id']) || $_SESSION['type'] == 1)
                     }
                     ?>
                     </div>
-
                     <form name="message" action="">
                         <input name="usermsg" type="text" id="usermsg" />
                         <input name="submitmsg" type="submit" id="submitmsg" value="Send"/>
@@ -352,13 +368,13 @@ if(!isset($_SESSION['id']) || $_SESSION['type'] == 1)
 
                         function loadLog() {
                             var oldscrollHeight = $("#chatbox")[0].scrollHeight - 20; //Scroll height before the request
-
+                            
                             $.ajax({
                                 url: "log.html",
                                 cache: false,
                                 success: function (html) {
                                     $("#chatbox").html(html); //Insert chat log into the #chatbox div
-
+                                    
                                     //Auto-scroll           
                                     var newscrollHeight = $("#chatbox")[0].scrollHeight - 20; //Scroll height after the request
                                     if(newscrollHeight > oldscrollHeight){
@@ -367,10 +383,10 @@ if(!isset($_SESSION['id']) || $_SESSION['type'] == 1)
                                 }
                             });
                         }
-
+                        
                         setInterval (loadLog, 2500);
                     });
-                </script>
+                    </script>
             </div>
         </div>
     </section>
@@ -461,8 +477,8 @@ if(!isset($_SESSION['id']) || $_SESSION['type'] == 1)
     </footer>
 
     <script>
-    AOS.init();
-    </script>
+        AOS.init();
+        </script>
     <script src="js/events.js"></script>
 </body>
 
