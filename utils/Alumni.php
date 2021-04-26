@@ -1,4 +1,7 @@
 <?php
+
+use function PHPSTORM_META\type;
+
 require_once('DBConnection.php');
 
 class Alumni
@@ -8,11 +11,18 @@ class Alumni
         $conn = DBConnection::getConn();
         $sql = "select job_id,company, type, salary from ".DBConstants::$JOB_POSTING_TABLE;
     
-        $condition = ($id == 'all')?'':" where id = '$id'";
+        $condition = ($id == 'all')?'':" where id = ?";
         
         $sql .= $condition;
         $sql .= " order by date_posted desc"; //just to place the recent ones first
-        $result = $conn->query($sql);
+
+        $stmt = $conn->prepare($sql);
+        
+        if(strpos($sql, "where"))
+            $stmt->bind_param("s", $id);
+
+        $stmt->execute();
+        $result = $stmt->get_result();
 
         $conn->close();
         
@@ -29,9 +39,13 @@ class Alumni
         $conn = DBConnection::getConn();
         
         $sql = "select alumni_id 'id', username from ".DBConstants::$ALUMNI_TABLE." where 
-        (email= '$username' or alumni_id = '$username') and password = '$password'";
+        (email= ? or alumni_id = ?) and password = ?";
 
-        $result = $conn->query($sql);
+        $stmt = $conn->prepare($sql);
+        $stmt->bind_param("sss", $username, $username, $password);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        
         $conn->close();
         
         if($result->num_rows > 0)
@@ -55,21 +69,29 @@ class Alumni
         
         return [];
     }
-    public function getParticularPosting(string $jobid):array
+    public function getParticularPosting(string $job_id):array
     {
         $conn = DBConnection::getConn();
-        $sql="select a.username,a.email, j.* from ".DBConstants::$ALUMNI_TABLE." a, ".DBConstants::$JOB_POSTING_TABLE." j 
-        where job_id='$jobid' and a.alumni_id = j.id";
-        
-        $result=$conn->query($sql);
+          
+        $stmt = $conn->prepare("select a.username,a.email, j.* from ".DBConstants::$ALUMNI_TABLE." a, ".DBConstants::$JOB_POSTING_TABLE." j 
+        where a.alumni_id = j.id and job_id = ?");
+
+        $stmt->bind_param("i", $job_id);
+
+        $stmt->execute();
+        $result = $stmt->get_result();
         
         //If alumni has not posted the job then it must be an admin
         if($result->num_rows<=0)
         {
-            $sql="select 'COLLEGE' as 'username',a.email, j.* from ".DBConstants::$ADMIN_TABLE." a, ".DBConstants::$JOB_POSTING_TABLE." j 
-            where job_id='$jobid' and a.admin_id = j.id";
             
-            $result=$conn->query($sql);
+            $stmt = $conn->prepare("select 'COLLEGE' as 'username',a.email, j.* from ".DBConstants::$ADMIN_TABLE." a, ".DBConstants::$JOB_POSTING_TABLE." j 
+            where job_id = ? and a.admin_id = j.id");
+
+            $stmt->bind_param("i", $job_id);
+
+            $stmt->execute();
+            $result = $stmt->get_result();
         }
 
         $conn->close(); 
@@ -84,10 +106,12 @@ class Alumni
     {
         $conn = DBConnection::getConn();
 
-        $sql = "insert into ".DBConstants::$JOB_POSTING_TABLE."(id, company, salary, type, description) 
-        values('$id', '$company', $sal, '$type', '$desc')";
+        $stmt = $conn->prepare("insert into ".DBConstants::$JOB_POSTING_TABLE."(id, company, salary, type, description) 
+        values(?, ?, ?, ?, ?);");
+        
+        $stmt->bind_param("sssss", $id, $company, $sal, $type, $desc);
 
-        $result = $conn->query($sql);
+        $result = $stmt->execute();
         $conn->close();
 
         return $result;
@@ -97,9 +121,12 @@ class Alumni
     {
         $conn = DBConnection::getConn();
         
-        $sql = 'delete from '.DBConstants::$JOB_POSTING_TABLE." where job_id = '$job_id'";
+        $sql = 'delete from '.DBConstants::$JOB_POSTING_TABLE." where job_id = ?";
+
+        $stmt = $conn->prepare($sql);
+        $stmt->bind_param("i", $job_id);
         
-        $result = $conn->query($sql);
+        $result = $stmt->execute();
         $conn->close();
 
         return $result;
@@ -185,10 +212,23 @@ class Alumni
         $phno=$info["phno"];
         $yearofgrad=$info["yearofgraduation"];
 
-        $sql = "insert into ".DBConstants::$ALUMNI_TABLE."(alumni_id,username,email,password,company,designation,address,branch,phno,yearofgraduation)  values('$rollno','$username','$email','$password','$company','$designation','$address','$branch','$phno','$yearofgrad')";
+        $sql = "insert into ".DBConstants::$ALUMNI_TABLE."(alumni_id,username,email,password,company,designation,address,branch,phno,yearofgraduation)  values( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+
+        $stmt = $conn->prepare($sql);
+        $stmt->bind_param("ssssssssss",
+                                $rollno,
+                                $username,
+                                $email,
+                                $password,
+                                $company,
+                                $designation,
+                                $address,
+                                $branch,
+                                $phno,
+                                $yearofgrad);
           
-        $result = $conn->query($sql);
-        // var_dump($result);
+        $result = $stmt->execute();
+        
         $conn->close();
         if($result)
         {

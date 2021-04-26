@@ -34,25 +34,7 @@ if(!isset($_SESSION['id']) || $_SESSION['type'] == 1)
 </head>
 
 <body onload="setup('load')">
-    <style type="text/css">
-    body
-    {
-        font-family: "Roboto", sans-serif;
-    }
-        .msgln._<?php echo $_SESSION['id']?> b.user-name
-        {
-            background: #435f7a;
-            color: #f5f5f5;
-            padding: 2px 4px;
-            font-size: 90%;
-            border-radius: 4px;
-            margin: 0 5px 0 0;
-            font-weight: bold;
-        }
-        div.msg
-        {
-            display: flex;
-        }
+    <style type="text/css"> 
         div._<?php echo $_SESSION['id']?>
         {
             justify-content: flex-end;

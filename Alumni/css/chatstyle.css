@@ -25,6 +25,10 @@
     font-family: "Roboto", sans-serif;
   }
    
+  div.msg{
+      display: flex;
+  }
+  
   #wrapper
    {
     margin: 0 auto;
