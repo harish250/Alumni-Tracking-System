@@ -377,7 +377,7 @@ if(!isset($_SESSION['id']) || $_SESSION['type'] == 1)
 
     </section>
     <!-- Footer section -->
-    <footer class="page-footer font-small stylish-color-dark pt-4 bg-dark" id="contact-us">
+    <footer class="page-footer font-small stylish-color-dark pt-2 bg-dark" id="contact-us">
         <!-- Footer Links -->
         <div class="container text-center text-md-left">
             <!-- Grid row -->
@@ -385,7 +385,7 @@ if(!isset($_SESSION['id']) || $_SESSION['type'] == 1)
                 <!-- Grid column -->
                 <div class="col-md-4 mx-auto">
                     <!-- Content -->
-                    <h5 class="mb-4" id="footer-head">Contact us </h5>
+                    <h5 class="mb-4 pt-2" id="footer-head">Contact us </h5>
                     <p id="footer-head-content">Alumni Tracking System Provides you with unlimited connection with your
                         Colleges </p>
                 </div>
@@ -394,16 +394,11 @@ if(!isset($_SESSION['id']) || $_SESSION['type'] == 1)
                 <!-- Grid column -->
                 <div class="col-md-2 mx-auto">
                     <!-- Links -->
-                    <h5 class="font-weight-bold text-uppercase mt-3 mb-4 text-white">Contact</h5>
+                    <h5 class="font-weight-bold text-uppercase mb-4 text-white">Contact</h5>
                     <ul class="list-unstyled" id="contacts">
                         <li class="mb-3">
                             <a href="#!" style="text-decoration: none;font-weight: 500 ;">Hyderabad +91-9909893199</a>
                         </li>
-                        <li class="mb-3">
-                            <a href="#!" style="text-decoration: none; font-weight: 500;">Delhi +91-9651301646</a>
-                        </li>
-                        <li class="mb-3">
-                            <a href="#!" style="text-decoration: none;font-weight: 500;">Kolkata +91-9964365878</a>
                     </ul>
                 </div>
                 <!-- Grid column -->
@@ -411,19 +406,19 @@ if(!isset($_SESSION['id']) || $_SESSION['type'] == 1)
                 <!-- Grid column -->
                 <div class="col-md-2 mx-auto" id="quick-links">
                     <!-- Links -->
-                    <h5 class="font-weight-bold text-uppercase mt-3 mb-4 text-white">Quick Links</h5>
+                    <h5 class="font-weight-bold text-uppercase mb-4 text-white">Quick Links</h5>
                     <ul class="list-unstyled">
-                        <li class="mb-3">
+                        <li class="mb-2">
                             <a href="#gallery" style="text-decoration: none;">Gallery</a>
                         </li>
-                        <li class="mb-3">
+                        <li class="mb-2">
                             <a href="#!" style="text-decoration: none;">Job Posting</a>
                         </li>
-                        <li class="mb-3">
+                        <li class="mb-2">
                             <a href="#!" style="text-decoration: none;">Events</a>
                         </li>
-                        <li class="mb-3">
-                            <a href="#!" style="text-decoration:none;">Notice Board</a>
+                        <li class="mb-2">
+                            <a href="#!" style="text-decoration:none;">Group Chat</a>
                         </li>
                     </ul>
                 </div>
@@ -432,29 +427,27 @@ if(!isset($_SESSION['id']) || $_SESSION['type'] == 1)
             <!-- Grid row -->
         </div>
         <!-- Footer Links -->
-        <hr>
-        -->
-        <hr>
+     
         <!-- Social buttons -->
-        <ul class="list-unstyled list-inline text-center">
+        <ul class="list-unstyled list-inline text-center mb-0">
             <li class="list-inline-item">
-                <a href="#" class="fab fa-facebook fa-3x" style="text-decoration: none;"></a>
+                <a href="#" class="fab fa-facebook fa-1x" style="text-decoration: none;"></a>
             </li>
             <li class="list-inline-item">
-                <a href="#" class="fab fa-twitter fa-3x" style="text-decoration: none;"></a>
+                <a href="#" class="fab fa-twitter fa-1x" style="text-decoration: none;"></a>
             </li>
             <li class="list-inline-item">
-                <a href="#" class="fab fa-google fa-3x" style="text-decoration: none;"></a>
+                <a href="#" class="fab fa-google fa-1x" style="text-decoration: none;"></a>
             </li>
             <li class="list-inline-item">
-                <a href="#" class="fab fa-linkedin fa-3x"></a>
+                <a href="#" class="fab fa-linkedin fa-1x"></a>
             </li>
 
         </ul>
         <!-- Social buttons -->
 
         <!-- Copyright -->
-        <div class="footer-copyright text-center py-3" style="color: white;">© 2020 Copyright:
+        <div class="footer-copyright text-center py-2" style="color: white;">© 2020 Copyright:
             <a href="#" class="lead" style="text-decoration: none;font-weight: 700;">Alumni Tracking System</a>
         </div>
         <!-- Copyright -->

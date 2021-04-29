@@ -1,5 +1,4 @@
 -- Triggers on ADMIN Table
-
 DELIMITER $$
 CREATE TRIGGER beforeInsertAdmin -- for automatic insertion of admin_id
   BEFORE INSERT ON admin 

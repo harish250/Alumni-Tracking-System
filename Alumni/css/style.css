@@ -17,7 +17,7 @@
 #main-content {
   position: relative;
   min-height: 600px;
-  background: url(../img/muhammad-rizwan-VnydpKiCDaY-unsplash\ \(4\)\ \(4\).jpg);
+  background: url("../img/muhammad-rizwan-VnydpKiCDaY-unsplash\ \(4\)\ \(4\).jpg");
   background-attachment: fixed;
   background-repeat: no-repeat;
   background-size: cover;
@@ -57,23 +57,32 @@ body {
 }
 #footer-head {
   font-weight: bolder;
-  font-size: xx-large;
+  font-size: 20px;
   color: white;
   text-transform: uppercase;
 }
 #footer-head-content {
   color: white;
   font-family: "Roboto", sans-serif;
-  font-size: xx-large;
+  font-size: 20px;
 }
+.footer-copyright
+{
+  font-size: 10px;
+}
+.footer-copyright .lead
+{
+  font-size: 10px;
+}
+
 #contacts {
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-  font-size: 20px;
+  font-size: 15px;
   text-decoration: none;
 }
 #quick-links {
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-  font-size: 20px;
+  font-size: 15px;
 }
 
 #service-section
@@ -84,6 +93,7 @@ body {
 
 #gallery-section {
   margin-top: 100px;
+  min-height: 382px;
 }
 .container #gallery-head {
   padding-top: 30px;
