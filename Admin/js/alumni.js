@@ -58,15 +58,17 @@ function showAlumnies(data, status) {
       });
     footer = createEle("card-footer");
     title = createEle("card-title").text(`${data.username}`).addClass("mb-0");
-      
+
     subtitle = createEle("card-subtitle")
       .text(`${data.batch_year} Batch`)
       .addClass("mb-3 text-muted");
-  
+
     card_text = createEle("card-text").text(`${data.company} | `);
 
-   small=jq('<small></small>').text(`${data.designation}`).addClass("text-muted");
-   card_text.append(small);
+    small = jq("<small></small>")
+      .text(`${data.designation}`)
+      .addClass("text-muted");
+    card_text.append(small);
     connect = jq("<a></a>")
       .addClass("btn btn-lg btn-outline-success")
       .attr({
@@ -75,7 +77,7 @@ function showAlumnies(data, status) {
       })
       .text("Connect")
       .click(function () {
-        url = CONTROLLER_LINK + `?action=contactinfo&id=${data.id}`;
+        url = CONTROLLER_LINK + `?action=contactinfo&id=${data.alumni_id}`;
 
         jq.get(url, createConnectModal);
       });

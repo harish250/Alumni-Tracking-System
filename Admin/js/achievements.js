@@ -2,18 +2,26 @@ var CONTROLLER_LINK = "controller.php";
 
 jq = $.noConflict();
 
-function setup(param)
+function setup(param, loadNames = true)
 {
 
   switch(param)
   {
         case 'load':
-            jq.get(CONTROLLER_LINK+"?action=names", loadDatalist);
+            if(loadNames)
+                jq.get(CONTROLLER_LINK+"?action=names", loadDatalist);
+            
             jq.get(CONTROLLER_LINK+"?action=getachievements",loadAchievements);
             break;
     
         case 'postachievement':
-            let val = jq("#email").val().split("(")[1].slice(0,-1) //name (email)
+            let val = jq("#email").val();
+            
+            if(val.includes('('))
+            {
+                val = val.split("(")[1].slice(0,-1) //name (email)
+            }
+            
             form = document.getElementById("achievementsform");
             formdata = new FormData(form);
             formdata.set("email",val);
@@ -45,6 +53,7 @@ function loadDatalist(data, status)
     for(var name of data)
     {
         option = jq("<option>").attr("value",`${name.username} (${name.email})`);
+        // datalist.empty(); //remove 
         datalist.append(option);
     }
 
@@ -58,7 +67,7 @@ function achievementAck(data, status)
     {
        jq("#divpost").addClass("text-success mt-3");
         jq('#ackpost').addClass("fas fa-thumbs-up").text("  Successfully posted");
-        setup('load');
+        setup('load', false);
     }
     else
     {
@@ -132,7 +141,7 @@ function createCard(data, n_cards)
 function deleteAck(data, status)
 {
     if(data)
-        setup('load');
+        setup('load', false);
     else
         console.log('failed');
 }

@@ -7,10 +7,14 @@ require_once('DBConnection.php');
         {
             $conn = DBConnection::getConn();
             
-            $sql = "select username, admin_id 'id' from ".DBConstants::$ADMIN_TABLE." where (username = '$username' or 
-            admin_id = '$username') and password = '$pass'";
+            $sql = "select username, admin_id 'id' from ".DBConstants::$ADMIN_TABLE." where (username = ? or 
+            admin_id = ?) and password = ?";
+            
+            $stmt = $conn->prepare($sql);
+            $stmt->bind_param("sss", $username, $username, $pass);
+            $stmt->execute();
 
-            $result = $conn->query($sql);
+            $result = $stmt->get_result();
             $conn->close();
             
             if($result->num_rows)
@@ -23,11 +27,18 @@ require_once('DBConnection.php');
         function searchAlumni(string $val):array
         {
             $conn = DBConnection::getConn();
+            $expr = "%$val%";
+
             $sql = "select a.alumni_id, a.username, a.company, EXTRACT( YEAR FROM DATE_SUB(a.yearofgraduation,INTERVAL 4 YEAR)) 'batch_year', a.designation from ".DBConstants::$ALUMNI_TABLE." a 
-            where username like '%$val%' or company like '%$val%' or branch like '%$val%' or designation like '%$val%' or 
-            EXTRACT( YEAR FROM DATE_SUB(a.yearofgraduation,INTERVAL 4 YEAR)) like '%$val%';
-            ";
-            $result = $conn->query($sql);
+            where username like ? or company like ? or branch like ? or designation like ? or 
+            EXTRACT( YEAR FROM DATE_SUB(a.yearofgraduation,INTERVAL 4 YEAR)) like ?;";
+            
+            $stmt = $conn->prepare($sql);
+            $stmt->bind_param('sssss', $expr, $expr, $expr, $expr, $expr);
+            $stmt->execute();
+
+            $result = $stmt->get_result();
+            
             $conn->close();
             if($result->num_rows)
             {
@@ -43,7 +54,7 @@ require_once('DBConnection.php');
             $filter_ids = "select a.alumni_id, a.username, a.company, a.address, 
             EXTRACT( YEAR FROM DATE_SUB(a.yearofgraduation,INTERVAL 4 YEAR)) 'batch_year',
             a.branch, a.designation from ".DBConstants::$ALUMNI_TABLE." a 
-            where a.alumni_id= '$id' ";
+            where a.alumni_id= ? ";
 
             $left_part_gal_post = "select t1.id 't1' ,t2.alumni_id 't2',t1.n_posting, t2.n_imgs from 
             (select id, count(*) 'n_posting' from ".DBConstants::$JOB_POSTING_TABLE." group by id) t1 LEFT JOIN
@@ -61,7 +72,11 @@ require_once('DBConnection.php');
             $gal_post on 
             T0.alumni_id = T4.t1 or T0.alumni_id = T4.t2";
 
-            $result = $conn->query($sql);
+            $stmt = $conn->prepare($sql);
+            $stmt->bind_param('s', $id);
+            $stmt->execute();
+
+            $result = $stmt->get_result();
             
             $conn->close();
             if($result->num_rows)
@@ -76,14 +91,17 @@ require_once('DBConnection.php');
         {
             $conn = DBConnection::getConn();
             
-            $sql = "select phno,email from ".DBConstants::$ALUMNI_TABLE." where alumni_id = '$id';";
-
-            $result = $conn->query($sql);
-
+            $sql = "select phno,email from ".DBConstants::$ALUMNI_TABLE." where alumni_id = ?;";
+          
+            $stmt = $conn->prepare($sql);
+            $stmt->bind_param('s', $id);
+            $stmt->execute();
+            $result = $stmt->get_result();
             $conn->close();
-
+            
             if($result->num_rows)
-                return $result->fetch_all(MYSQLI_ASSOC);
+                return $result->fetch_assoc();
+            // return $result->fetch_all(MYSQLI_ASSOC);
             
             return [];
         }
@@ -102,8 +120,12 @@ require_once('DBConnection.php');
             if($ack)
             {
                 $sql = "insert into ".DBConstants::$EVENT_TABLE."(title,description,start_date,end_date,image_url)
-                        values('$title','$desc','$sdatetime','$edatetime','$dest')";    
-                $conn->query($sql);
+                        values(?, ?, ?, ?, ?)";
+                
+                $stmt = $conn->prepare($sql);
+                $stmt->bind_param('sssss', $title, $desc, $sdatetime, $edatetime, $dest);
+                $stmt->execute();
+
                 $conn->close();
                 return true;
             }
@@ -131,21 +153,31 @@ require_once('DBConnection.php');
             
             // delete the post and its related image
             
-            $sql = "select image_url from ".DBConstants::$EVENT_TABLE." where event_id = $event_id";
+            $sql = "select image_url from ".DBConstants::$EVENT_TABLE." where event_id = ?";
             
-            $result = $conn->query($sql);
+            $stmt = $conn->prepare($sql);
+            $stmt->bind_param('s', $event_id);
+            $stmt->execute();
+            $result = $stmt->get_result();
+
             if($result->num_rows)
             {
                 $img_url = $result->fetch_assoc()['image_url'];
                 $ack = unlink($img_url);
                 if($ack)
                 {
-                    $sql = "delete from ".DBConstants::$EVENT_TABLE." where event_id = $event_id";
-                    $conn->query($sql);
+                    $sql = "delete from ".DBConstants::$EVENT_TABLE." where event_id = ?";
+                    
+                    $stmt = $conn->prepare($sql);
+                    $stmt->bind_param('s', $event_id);
+                    $stmt->execute();
+
                     $conn->close();
                     return true;
                 }
             }
+            
+            $conn->close();
             return false;
         }
                  
@@ -164,9 +196,13 @@ require_once('DBConnection.php');
         function postAchievement(string $email, string $desc, $file):bool
         {
             $conn = DBConnection::getConn();
-            $sql = "select alumni_id from ".DBConstants::$ALUMNI_TABLE." where email='$email'";
+            $sql = "select alumni_id from ".DBConstants::$ALUMNI_TABLE." where email = ?";
             
-            $result = $conn->query($sql);
+            $stmt = $conn->prepare($sql);
+            $stmt->bind_param('s', $email);
+            $stmt->execute();
+
+            $result = $stmt->get_result();
             $alumni_id = $result->fetch_assoc()['alumni_id'];
 
             $imgfolder = '../Alumni/img/';
@@ -181,8 +217,12 @@ require_once('DBConnection.php');
             if($ack)
             {
                 $sql = "insert into ".DBConstants::$CAREER_TABLE."(alumni_id, description, alumni_photo_url) 
-                values('$alumni_id', '$desc','$dest')";
-                $conn->query($sql);
+                values('$alumni_id', ?, ?)";
+
+                $stmt = $conn->prepare($sql);
+                $stmt->bind_param('ss', $desc, $dest);
+                $stmt->execute();
+                
                 $conn->close();
 
                 return true;
@@ -204,8 +244,11 @@ require_once('DBConnection.php');
             $ack = unlink($url);
             if($ack)
             {
-                $sql = "delete from ".DBConstants::$CAREER_TABLE." where alumni_photo_url = '$url';";
-                $conn->query($sql);
+                $sql = "delete from ".DBConstants::$CAREER_TABLE." where alumni_photo_url = ?;";
+                $stmt = $conn->prepare($sql);
+                $stmt->bind_param('s', $url);
+                $stmt->execute();
+                
                 $conn->close();
                 return true;
             }
@@ -216,12 +259,16 @@ require_once('DBConnection.php');
         {
             $conn = DBConnection::getConn();
 
-            $val = str_replace("_","%",$val);
+            $expr = '%'.str_replace("_","%",$val).'%';
 
-            $sql="select job_id, company, type , salary from ".DBConstants::$JOB_POSTING_TABLE." where company like '%$val%' or 
-            type like '%$val%' or description like '%$val%'";
+            $sql="select job_id, company, type , salary from ".DBConstants::$JOB_POSTING_TABLE." where company like ? or 
+            type like ? or description like ?";
 
-            $result = $conn->query($sql);
+            $stmt = $conn->prepare($sql);
+            $stmt->bind_param('sss', $expr, $expr, $expr);
+            $stmt->execute();
+
+            $result = $stmt->get_result();
             $conn->close();
             if($result->num_rows > 0)
                 return $result->fetch_all(MYSQLI_ASSOC);
