@@ -38,18 +38,23 @@ class Alumni
     {
         $conn = DBConnection::getConn();
         
-        $sql = "select alumni_id 'id', username from ".DBConstants::$ALUMNI_TABLE." where 
-        (email= ? or alumni_id = ?) and password = ?";
+        $sql = "select alumni_id 'id', username, password from ".DBConstants::$ALUMNI_TABLE." where 
+        (email= ? or alumni_id = ?)";
 
         $stmt = $conn->prepare($sql);
-        $stmt->bind_param("sss", $username, $username, $password);
+        $stmt->bind_param("ss", $username, $username);
         $stmt->execute();
         $result = $stmt->get_result();
         
         $conn->close();
         
-        if($result->num_rows > 0)
-            return $result->fetch_assoc();
+        if($result->num_rows > 0){
+            $ret = $result->fetch_assoc();
+            if(password_verify($password, $ret['password'])){
+                unset($ret['password']);
+                return $ret;  
+            }
+        }
         
         return [];
     }
@@ -212,6 +217,8 @@ class Alumni
         $phno=$info["phno"];
         $yearofgrad=$info["yearofgraduation"];
 
+        $password_hash = password_hash($password, PASSWORD_DEFAULT);
+
         $sql = "insert into ".DBConstants::$ALUMNI_TABLE."(alumni_id,username,email,password,company,designation,address,branch,phno,yearofgraduation)  values( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
         $stmt = $conn->prepare($sql);
@@ -219,7 +226,7 @@ class Alumni
                                 $rollno,
                                 $username,
                                 $email,
-                                $password,
+                                $password_hash,
                                 $company,
                                 $designation,
                                 $address,

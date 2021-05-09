@@ -7,19 +7,23 @@ require_once('DBConnection.php');
         {
             $conn = DBConnection::getConn();
             
-            $sql = "select username, admin_id 'id' from ".DBConstants::$ADMIN_TABLE." where (username = ? or 
-            admin_id = ?) and password = ?";
+            $sql = "select username, admin_id 'id', password from ".DBConstants::$ADMIN_TABLE." where (username = ? or 
+            admin_id = ?)";
             
             $stmt = $conn->prepare($sql);
-            $stmt->bind_param("sss", $username, $username, $pass);
+            $stmt->bind_param("ss", $username, $username);
             $stmt->execute();
-
+            
             $result = $stmt->get_result();
             $conn->close();
             
-            if($result->num_rows)
-                return $result->fetch_assoc();
-            
+            if($result->num_rows > 0){
+                $ret = $result->fetch_assoc();
+                if(password_verify($pass, $ret['password'])){
+                    unset($ret['password']);
+                    return $ret;  
+                }
+            }
             return [];
             
         }
