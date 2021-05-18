@@ -90,6 +90,7 @@ function login(data, status)
       $("#myloginmodal small").removeClass("text-danger");
       $("#myloginmodal small").addClass("text-success");
       $("#myloginmodal small").text("successfull");
+      $("#myloginmodal").modal('toggle');
       
       makeNecessaryChanges(username);
     } 
@@ -298,3 +299,10 @@ function validateSignup()
   return true;
 }
 
+$('#myloginmodal #login_password').keypress(function (e) {
+  var key = e.which;
+  if(key == 13)  // the enter key code
+   {
+     $('#submitButton').click();
+   }
+ });   
